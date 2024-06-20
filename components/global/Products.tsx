@@ -30,7 +30,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 gap-4 p-4'>
+    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 gap-4 p-4 mt-10'>
       {products?.map((item: any, index) => (
         <div
           key={index}
