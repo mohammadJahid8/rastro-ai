@@ -6,11 +6,7 @@ import cameraPlus from "/public/logo/cameraPlus.jpg";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import {
-  Ellipsis,
-  Search,
-  XIcon,
-} from "lucide-react";
+import { Ellipsis, Search, XIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -132,7 +128,7 @@ const UserAvatar = () => (
 
 const Brand = () => (
   <div className="flex items-center justify-between gap-2">
-    <Image src={primaryLogo} alt="rastro-ai" width={50} height={50} />
+    <Image src={primaryLogo} alt="rastro-ai" width={40} height={40} />
     <p
       className={cn(
         "text-[34px] font-semibold text-rastro-primary",
@@ -197,7 +193,7 @@ const UserInput = ({
               <Image
                 src={URL.createObjectURL(img)}
                 alt="uploaded"
-               fill
+                fill
                 className="rounded"
               />
             </div>
