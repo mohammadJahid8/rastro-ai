@@ -22,18 +22,14 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
   DropdownMenuPortal,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "../ui/dropdown-menu";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import CameraPlus from "../icons/CameraPlus";
 const inter = Inter({ subsets: ["latin"] });
 type Props = {};
 
@@ -89,28 +85,24 @@ const UserDropdownMenu = () => (
       <Ellipsis />
     </DropdownMenuTrigger>
     <DropdownMenuContent>
-      {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
-      <DropdownMenuSeparator /> */}
       <DropdownMenuGroup>
         <DropdownMenuItem>
-          <Button variant="link" size={"sm"}>
-            Saved Product
-          </Button>
+          <span className="text-sm font-semibold">Saved Product</span>
         </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
-            <span>Language</span>
+            <span className="text-sm font-semibold">Language</span>
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
               <DropdownMenuItem>
-                <span>English</span>
+                <span className="text-xs font-normal">English</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <span>French</span>
+                <span className="text-xs font-normal">French</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <span>German</span>
+                <span className="text-xs font-normal">German</span>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
@@ -128,7 +120,7 @@ const UserAvatar = () => (
 
 const Brand = () => (
   <div className="flex items-center justify-between gap-2">
-    <Image src={primaryLogo} alt="rastro-ai" width={40} height={40} />
+    <Image src={primaryLogo} alt="rastro-ai" width={44} height={44} />
     <p
       className={cn(
         "text-[34px] font-semibold text-rastro-primary",
@@ -149,12 +141,16 @@ const LanguageSelect = ({
 }) => (
   <Select value={language} onValueChange={setLanguage}>
     <SelectTrigger className="w-[50px] px-[8px] py-[10px]">
-      <SelectValue placeholder="En" />
+      <SelectValue className="text-sm" placeholder="En" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>
-        <SelectItem value="Fr">Fr</SelectItem>
-        <SelectItem value="En">En</SelectItem>
+        <SelectItem className="text-sm" value="Fr">
+          Fr
+        </SelectItem>
+        <SelectItem className="text-sm" value="En">
+          En
+        </SelectItem>
       </SelectGroup>
     </SelectContent>
   </Select>
