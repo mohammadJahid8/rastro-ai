@@ -1,10 +1,18 @@
-'use client';
-import Image from 'next/image';
-import primaryLogo from '/public/logo/rastro-logo.jpg';
-import userImg from '/public/logo/user.png';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Camera, EllipsisVertical, Search } from 'lucide-react';
+"use client";
+import Image from "next/image";
+import primaryLogo from "/public/logo/rastro-logo.jpg";
+import userImg from "/public/logo/user.png";
+import cameraPlus from "/public/logo/cameraPlus.jpg";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import {
+  Ellipsis,
+  Mail,
+  MessageSquare,
+  PlusCircle,
+  Search,
+  UserPlus,
+} from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -12,8 +20,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import { useState } from 'react';
+} from "../ui/select";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import {
   DropdownMenu,
@@ -23,124 +31,55 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Inter } from 'next/font/google';
-import { cn } from '@/lib/utils';
-const inter = Inter({ subsets: ['latin'] });
+  DropdownMenuPortal,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from "../ui/dropdown-menu";
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
+import CameraPlus from "../icons/CameraPlus";
+const inter = Inter({ subsets: ["latin"] });
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const [language, setLanguage] = useState('En');
+  const [language, setLanguage] = useState("En");
 
   return (
-    <div className='w-full flex flex-col lg:flex-row justify-between items-center'>
-      <div className='flex justify-between items-center w-full lg:hidden '>
-        <div className='flex items-center justify-between gap-2'>
-          <Image src={primaryLogo} alt='rastro-ai' width={50} height={50} />
-          <p className={cn('text-3xl text-rastro-primary', inter.className)}>
-            Rastro
-          </p>
-        </div>
-        <div className='lg:hidden flex items-center gap-2'>
-          <Button className=' w-[44px] h-[44px] rounded-full relative'>
-            <Image src={userImg} alt='user' fill className='rounded-full' />
-          </Button>
-          <div className='lg:hidden'>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <EllipsisVertical />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>
-                    <Button variant='default' size={'sm'}>
-                      Create an Account
-                    </Button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Button variant='default' size={'sm'}>
-                      Create an Account
-                    </Button>
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+    <div className="w-full flex flex-col lg:flex-row justify-between items-center">
+      {/* Mobile responsive starts */}
+      <div className="flex justify-between items-center w-full lg:hidden ">
+        <Brand />
+        {/* User Avatar for Mobile */}
+        <div className="lg:hidden flex items-center gap-2">
+          <UserAvatar />
+          <div className="">
+            <UserDropdownMenu />
           </div>
         </div>
       </div>
-      <div className='flex lg:hidden w-full max-w-sm items-center space-x-2 mt-4 lg:mt-0 lg:w-auto'>
-        <div className='relative flex items-center w-full lg:w-auto'>
-          <Search className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform' />
-          <Input placeholder='Search' className='w-full' />
+      <div className="flex lg:hidden w-full items-center space-x-2 mt-10 lg:mt-0 lg:w-auto">
+        <UserInput />{" "}
+      </div>
+      {/* Mobile responsive ends */}
+
+      {/* Desktop starts */}
+      <div className="hidden lg:flex lg:justify-center lg:gap-12">
+        <div className="flex justify-between items-center w-full lg:flex-1 lg:gap-20">
+          <Brand />
         </div>
-        <Button type='submit'>
-          <Camera />
+        <div className="flex w-full items-center space-x-2 mt-4 lg:mt-0 lg:w-auto">
+          <UserInput />
+        </div>
+      </div>
+      <div className="hidden lg:flex w-full lg:w-auto lg:flex-1 justify-end items-center gap-5 mt-4 lg:mt-0">
+        <Button variant="default" className={"px-[12px] py-[9px]"}>
+          Create an Account
         </Button>
-      </div>
-      <div className='hidden lg:flex lg:justify-center lg:gap-16'>
-        <div className='flex justify-between items-center w-full lg:flex-1 lg:gap-20'>
-          <div className='flex items-center justify-between gap-2'>
-            <Image src={primaryLogo} alt='rastro-ai' width={50} height={50} />
-            <p className='text-3xl text-rastro-primary'>Rastro</p>
-          </div>
-          <div className='lg:hidden flex items-center gap-2'>
-            <Button className=' w-[44px] h-[44px] rounded-full relative'>
-              <Image src={userImg} alt='user' fill className='rounded-full' />
-            </Button>
-            <div className='lg:hidden'>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <EllipsisVertical />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <Button variant='default' size={'sm'}>
-                        Create an Account
-                      </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Button variant='default' size={'sm'}>
-                        Create an Account
-                      </Button>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-        <div className='flex w-full items-center space-x-2 mt-4 lg:mt-0 lg:w-auto'>
-          <div className='relative flex items-center w-full lg:w-auto'>
-            <Search className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform' />
-            <Input placeholder='Search' className='min-w-[20rem]' />
-          </div>
-          <Button type='submit'>
-            <Camera />
-          </Button>
-        </div>
-      </div>
-      <div className='hidden lg:flex w-full lg:w-auto lg:flex-1 justify-end items-center gap-5 mt-4 lg:mt-0'>
-        <Button variant='default'>Create an Account</Button>
-        <Select value={language} onValueChange={setLanguage}>
-          <SelectTrigger className='w-20'>
-            <SelectValue placeholder='En' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value='Fr'>Fr</SelectItem>
-              <SelectItem value='En'>En</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <div id='img' className='hidden lg:block'>
-          <Button className='w-[44px] h-[44px] rounded-full relative'>
-            <Image src={userImg} alt='user' fill className='rounded-full' />
-          </Button>
+        <LanguageSelect language={language} setLanguage={setLanguage} />
+        <div className="hidden lg:block">
+          <UserAvatar />
         </div>
       </div>
     </div>
@@ -148,3 +87,90 @@ const Navbar = (props: Props) => {
 };
 
 export default Navbar;
+
+const UserDropdownMenu = () => (
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Ellipsis />
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+      {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
+      <DropdownMenuSeparator /> */}
+      <DropdownMenuGroup>
+        <DropdownMenuItem>
+          <Button variant="link" size={"sm"}>
+            Saved Product
+          </Button>
+        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <span>Language</span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem>
+                <span>English</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>French</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>German</span>
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+      </DropdownMenuGroup>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+const UserAvatar = () => (
+  <Button className="w-[44px] h-[44px] rounded-full relative">
+    <Image src={userImg} alt="user" fill className="rounded-full" />
+  </Button>
+);
+
+const Brand = () => (
+  <div className="flex items-center justify-between gap-2">
+    <Image src={primaryLogo} alt="rastro-ai" width={50} height={50} />
+    <p
+      className={cn(
+        "text-[34px] font-semibold text-rastro-primary",
+        inter.className
+      )}
+    >
+      Rastro
+    </p>
+  </div>
+);
+
+const LanguageSelect = ({
+  language,
+  setLanguage,
+}: {
+  language: string;
+  setLanguage: Dispatch<SetStateAction<string>>;
+}) => (
+  <Select value={language} onValueChange={setLanguage}>
+    <SelectTrigger className="w-[50px] px-[8px] py-[10px]">
+      <SelectValue placeholder="En" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectItem value="Fr">Fr</SelectItem>
+        <SelectItem value="En">En</SelectItem>
+      </SelectGroup>
+    </SelectContent>
+  </Select>
+);
+
+const UserInput = () => (
+  <>
+    <div className="relative flex items-center w-full lg:w-[22rem]  xl:!w-[420px]">
+      <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform" />
+      <Input placeholder="Search" className="w-full" />
+    </div>
+    <Image src={cameraPlus} alt="upload" width={42} height={42} />
+  </>
+);
