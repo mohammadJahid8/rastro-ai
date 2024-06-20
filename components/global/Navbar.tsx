@@ -3,15 +3,13 @@ import Image from "next/image";
 import primaryLogo from "/public/logo/rastro-logo.jpg";
 import userImg from "/public/logo/user.png";
 import cameraPlus from "/public/logo/cameraPlus.jpg";
+
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import {
   Ellipsis,
-  Mail,
-  MessageSquare,
-  PlusCircle,
   Search,
-  UserPlus,
+  XIcon,
 } from "lucide-react";
 import {
   Select,
@@ -45,6 +43,7 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   const [language, setLanguage] = useState("En");
+  const [img, setImg] = useState<Blob | MediaSource | null>(null);
 
   return (
     <div className="w-full flex flex-col lg:flex-row justify-between items-center">
@@ -60,7 +59,7 @@ const Navbar = (props: Props) => {
         </div>
       </div>
       <div className="flex lg:hidden w-full items-center space-x-2 mt-10 lg:mt-0 lg:w-auto">
-        <UserInput />{" "}
+        <UserInput img={img} setImg={setImg} />{" "}
       </div>
       {/* Mobile responsive ends */}
 
@@ -70,7 +69,7 @@ const Navbar = (props: Props) => {
           <Brand />
         </div>
         <div className="flex w-full items-center space-x-2 mt-4 lg:mt-0 lg:w-auto">
-          <UserInput />
+          <UserInput img={img} setImg={setImg} />
         </div>
       </div>
       <div className="hidden lg:flex w-full lg:w-auto lg:flex-1 justify-end items-center gap-5 mt-4 lg:mt-0">
@@ -165,12 +164,56 @@ const LanguageSelect = ({
   </Select>
 );
 
-const UserInput = () => (
-  <>
-    <div className="relative flex items-center w-full lg:w-[22rem]  xl:!w-[420px]">
-      <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform" />
-      <Input placeholder="Search" className="w-full" />
-    </div>
-    <Image src={cameraPlus} alt="upload" width={42} height={42} />
-  </>
-);
+const UserInput = ({
+  img,
+  setImg,
+}: {
+  img: Blob | MediaSource | null;
+  setImg: any;
+}) => {
+  const handleRemoveImage = () => {
+    setImg(null);
+  };
+
+  return (
+    <>
+      <div className="relative flex items-center w-full lg:w-[22rem]  xl:!w-[420px]">
+        <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform" />
+        <Input placeholder="Search" className="w-full" />
+      </div>
+      <div className="relative">
+        <input
+          id="image"
+          className="hidden"
+          type="file"
+          onChange={(e) => {
+            //@ts-ignore
+            setImg(e?.target?.files[0]);
+          }}
+        />
+        {img ? (
+          <div className="relative">
+            <div className="relative w-[42px] h-[42px]">
+              <Image
+                src={URL.createObjectURL(img)}
+                alt="uploaded"
+               fill
+                className="rounded"
+              />
+            </div>
+            <button
+              className="absolute -top-2 -right-1 bg-white rounded-full border border-black p-1"
+              onClick={handleRemoveImage}
+            >
+              <XIcon className="h-4 w-4 text-black " />
+            </button>
+          </div>
+        ) : (
+          <label htmlFor="image">
+            <Image src={cameraPlus} alt="upload" width={42} height={42} />
+          </label>
+        )}
+      </div>
+    </>
+  );
+};
