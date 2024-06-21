@@ -7,6 +7,7 @@ import Image from 'next/image';
 
 const Products = ({ products }: any) => {
   const router = useRouter();
+  console.log({ products });
 
   return (
     <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10'>
