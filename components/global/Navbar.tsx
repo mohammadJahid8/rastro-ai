@@ -31,10 +31,13 @@ import {
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useAppContext } from '@/context/context';
+
 const inter = Inter({ subsets: ['latin'] });
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const { user, handleLogin, handleLogout } = useAppContext();
   const [language, setLanguage] = useState('En');
   const [img, setImg] = useState<Blob | MediaSource | null>(null);
 
@@ -47,7 +50,7 @@ const Navbar = (props: Props) => {
         <div className='lg:hidden flex items-center gap-2'>
           <UserAvatar />
           <div className=''>
-            <UserDropdownMenu />
+            <UserDropdownMenu handleLogout={handleLogout} />
           </div>
         </div>
       </div>
@@ -66,7 +69,11 @@ const Navbar = (props: Props) => {
         </div>
       </div>
       <div className='hidden lg:flex w-full lg:w-auto lg:flex-1 justify-end items-center gap-5 mt-4 lg:mt-0'>
-        <Button variant='default' className={'px-[12px] py-[9px]'}>
+        <Button
+          variant='default'
+          className={'px-[12px] py-[9px]'}
+          onClick={handleLogin}
+        >
           Create an Account
         </Button>
         <LanguageSelect language={language} setLanguage={setLanguage} />
@@ -80,7 +87,7 @@ const Navbar = (props: Props) => {
 
 export default Navbar;
 
-const UserDropdownMenu = () => (
+const UserDropdownMenu = ({ handleLogout }: any) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Ellipsis />
@@ -90,7 +97,7 @@ const UserDropdownMenu = () => (
         <DropdownMenuItem>
           <span className='text-sm font-semibold'>Saved Product</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className='block lg:hidden'>
+        <DropdownMenuItem className='block lg:hidden' onClick={handleLogout}>
           <span className='text-sm font-semibold text-red-600 inline-flex gap-2 items-center'>
             <LogOut className='w-4 h-4' />
             Logout

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/global/Navbar';
+import Context from '@/context/context';
 
 // const inter = Inter({ subsets: ["latin"] });
 const manrope = Manrope({ subsets: ['latin'] });
@@ -18,9 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`mx-auto p-5 md:p-10 ${manrope.className}`}>
-        <Navbar />
-        {children}
+      <body className={`${manrope.className}`}>
+        <Context>
+          <div className={`mx-auto p-5 md:p-10`}>
+            <Navbar />
+            {children}
+          </div>
+        </Context>
       </body>
     </html>
   );
