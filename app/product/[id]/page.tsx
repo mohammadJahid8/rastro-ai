@@ -30,11 +30,11 @@ const page = async ({ params }: Props) => {
   console.log(product);
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
+    <div className="grid grid-cols-4 md:grid-cols-5 gap-4 h-full">
       <div className="col-span-4 md:col-span-2">
         <ProductCard product={product} />
       </div>
-      <div className="col-span-4 md:col-span-3">
+      <div className="col-span-4 md:col-span-3 h-screen overflow-y-scroll">
         <div className="columns-2 xs:columns-2 md:columns-3 gap-2 ">
           {products?.map((item: any, index: number) => (
             <ProductsCard key={item.id} product={item} />
