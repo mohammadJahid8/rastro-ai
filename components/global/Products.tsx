@@ -20,7 +20,7 @@ const Products = () => {
           `https://sourcerer-production.up.railway.app/api/products?page_size=20`,
           {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImRmOGIxNTFiY2Q5MGQ1YjMwMjBlNTNhMzYyZTRiMzA3NTYzMzdhNjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQWJkdXIgUmFobWFuIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xwOHFkS0owRkhnRUhVOEZVSTlWWTU0Mmg5cTdPTjRtOW80WVVOXzQtWW9mVXVMZ3c9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmFzdHJvLWFpIiwiYXVkIjoicmFzdHJvLWFpIiwiYXV0aF90aW1lIjoxNzE4ODkzNzk4LCJ1c2VyX2lkIjoiTVZ2aGhsdndQQ1ZqQmNSTVhHMXFFT1JUb09HMiIsInN1YiI6Ik1WdmhobHZ3UENWakJjUk1YRzFxRU9SVG9PRzIiLCJpYXQiOjE3MTg5Mjg5MDgsImV4cCI6MTcxODkzMjUwOCwiZW1haWwiOiJwZXJzb25hbC5hYmR1cnJhaG1hbkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTE1NDI0NzI5MTczMzQ2NzYwNCJdLCJlbWFpbCI6WyJwZXJzb25hbC5hYmR1cnJhaG1hbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.dGF5ftfW18C9uLgkg0SOwfBGlQ73FcYvj7v2_mbg59kP5FcIV6KKYo5TNBwHZEoEb4h4VylluIRwiU_5fXTYB_udFmQeDxbIr6b-Sv1aeAmx-ZGEo7iUOLbA6HW_pVt_xMCD6u5BKwuzfxkdI7mGXG737YkTmgfeoFrLdVu4e0n2_KpbcMMjaEmecgU2SjVr3N7SJvou1-uj0DzdlZ_-Rqs5ez5rYR9qshyuhaoUDpBZyeuilICjCUSVFvgLLk-opPfhmFb_Uvgfk6h6OSy4ZiiaSpWLOdK8AEoNjilqaqQyMLAvo_a_WmSt_K0ps_W4PG9ODoplI0Uez2T7O_WDlQ`,
+              Authorization: `Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImRmOGIxNTFiY2Q5MGQ1YjMwMjBlNTNhMzYyZTRiMzA3NTYzMzdhNjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiTWQgSmFoaWQiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS2EtOGd4ZlB2M0Q5ZlNhLWtzTmtOSzlVeW9BUU8xenJvalhQS2xQWUhBQkQ3Z2M0VHE9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmFzdHJvLWFpIiwiYXVkIjoicmFzdHJvLWFpIiwiYXV0aF90aW1lIjoxNzE4ODE0NTA0LCJ1c2VyX2lkIjoiTUNkQlVyNWFTRlk3bGhjclN0b3ZLcTZMbEtIMyIsInN1YiI6Ik1DZEJVcjVhU0ZZN2xoY3JTdG92S3E2TGxLSDMiLCJpYXQiOjE3MTg5MzI1NDIsImV4cCI6MTcxODkzNjE0MiwiZW1haWwiOiJtb2hhbW1hZGphaGlkMDAwN0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTMxMzQ0MzQwNDE0NzE1NTExOCJdLCJlbWFpbCI6WyJtb2hhbW1hZGphaGlkMDAwN0BnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.OhfiycTmYpgS8sXUWDGxx5tVbekLZvbFr652x2aek5EkM_8y7JVbcvEnuGRfNXcWWVb1Uh2JQn302vST8PKv4TCCzpPBe4FKbbgadMWbRgMOrUPHRK_T_K-ucZUbxfxznCpiPq_L9pH_h9ZIff4dBggiR59gAjZdaVbUTeQa571JhR22yOAZmBlWqosOzeb8t__GiQpq1PcgSlOR0kjz-v-aBdoKGdWALNbYchm8lXAK-FJpmpfWpDcEptyjl0FpWa27BpBmrkigCmUTtG6NxY8BayPAyTx0mhnwJPP1WU79SWPRt8g23riCWZjYA03kdDTCGyq72nh_D81lkip2Hw`,
             },
           }
         );
@@ -35,7 +35,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className='columns-2 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 gap-4 p-4 mt-10'>
+    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10'>
       {products?.map((item: any, index) => {
         const closesAt: Date = new Date(item.closes_at);
         const now: Date = new Date();
@@ -45,7 +45,7 @@ const Products = () => {
         return (
           <div
             key={index}
-            className='mb-4 break-inside-avoid  p-1 rounded-sm group'
+            className='mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer'
           >
             <div className='relative'>
               <img
@@ -53,22 +53,22 @@ const Products = () => {
                 alt={item.title_french}
                 className='w-full rounded-lg '
               />
-              <div className='opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-300 '></div>
-              <div className='opacity-0  absolute bottom-3 left-1/2 -translate-x-1/2 flex justify-center items-center gap-2 group-hover:opacity-100 transition-opacity delay-300 z-20'>
+              <div className='opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75'></div>
+              <div className='opacity-0 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end items-center gap-2 group-hover:opacity-100 transition-opacity delay-75 z-20'>
                 <Button
                   onClick={() => router.push(item.url)}
                   variant={'outline'}
-                  className='gap-1'
+                  className='gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]'
                 >
-                  <span className='text-sm font-medium'>Drouot</span>
+                  Drouot
                   <ExternalLink />
                 </Button>
-                <Button className='bg-rastro-primary'>
-                  <span className='text-sm font-medium'>Save</span>
+                <Button className='bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]'>
+                  Save
                 </Button>
               </div>
-              <div className='bg-white shadow-xl rounded-md absolute top-2 right-2 px-2 py-1'>
-                <p className='font-semibold text-sm'>{`€ ${Math.round(
+              <div className='bg-white shadow-sm rounded-[8px] absolute top-2 right-2 px-[6px] py-[3px] sm:px-2 sm:py-1'>
+                <p className='font-semibold sm:text-sm'>{`€ ${Math.round(
                   item.estimated_price_min
                 )} - ${Math.round(item.estimated_price_max)}`}</p>
               </div>
