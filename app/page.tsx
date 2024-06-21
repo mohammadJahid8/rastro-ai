@@ -14,6 +14,8 @@ async function getProducts() {
   return response?.data;
 }
 
+export const revalidate = 3600;
+
 export default async function Home() {
   const products = await getProducts();
 

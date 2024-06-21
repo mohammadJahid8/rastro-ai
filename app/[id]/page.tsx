@@ -1,5 +1,11 @@
-const Product = () => {
-  return <div>product detail page</div>;
+import Product from '@/components/global/Product';
+
+const page = () => {
+  return (
+    <div>
+      <Product />
+    </div>
+  );
 };
 
-export default Product;
+export default page;

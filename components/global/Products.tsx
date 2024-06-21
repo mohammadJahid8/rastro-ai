@@ -3,7 +3,7 @@
 import { Button } from '../ui/button';
 import ExternalLink from '../icons/ExternalLink';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import Image from 'next/image';
 
 const Products = ({ products }: any) => {
   const router = useRouter();
@@ -17,16 +17,20 @@ const Products = ({ products }: any) => {
           (closesAt.getTime() - now.getTime()) / (1000 * 60 * 60) < 24;
 
         return (
-          <Link
-            href={`/${item?.id}`}
+          <div
+            onClick={() => router.push(`/${item.id}`)}
             key={index}
             className='mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer'
           >
             <div className='relative'>
-              <img
+              <Image
                 src={item.scanned_product.image_public_urls[0]}
                 alt={item.title_french}
-                className='w-full rounded-lg '
+                className='w-full rounded-lg'
+                width='0'
+                height='0'
+                quality={100}
+                unoptimized
               />
               <div className='opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75'></div>
               <div className='opacity-0 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end items-center gap-2 group-hover:opacity-100 transition-opacity delay-75 z-20'>
@@ -68,7 +72,7 @@ const Products = ({ products }: any) => {
             <p className='mt-2 text-start font-semibold text-sm '>
               {item?.title}
             </p>
-          </Link>
+          </div>
         );
       })}
     </div>
