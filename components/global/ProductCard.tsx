@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronLeft, ExternalLinkIcon } from "lucide-react";
 import { formatDate } from "@/utils/formatDate";
 import { useState } from "react";
+import Link from "next/link";
 
 const ProductCard = ({ product }: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,9 +55,12 @@ const ProductCard = ({ product }: any) => {
         <div className=" flex justify-end items-center gap-2 my-2 md:hidden">
           <Buttons router={router} productUrl={product.url} />
         </div>
-        <div className="absolute top-2 left-2 bg-white w-9 h-9 rounded-[8px] p-1 flex justify-center items-center">
-          <ChevronLeft className="h-4 w-4" />
-        </div>
+        <Link
+          href={"/"}
+          className="absolute top-2 left-2 bg-white w-9 h-9 rounded-[8px] p-1 flex justify-center items-center group"
+        >
+          <ChevronLeft className="h-4 w-4 text-black " />
+        </Link>
         <div className="absolute top-2 right-2 flex justify-center items-center gap-2 ">
           {isLessThan24 && (
             <div className=" ">

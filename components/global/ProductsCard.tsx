@@ -21,7 +21,7 @@ const ProductsCard = ({ product }: Props) => {
   return (
     <div
       onClick={() => router.push(`/product/${product.id}`)}
-      className="mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer"
+      className="mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer z-10"
     >
       <div className="relative">
         <Image
@@ -34,7 +34,7 @@ const ProductsCard = ({ product }: Props) => {
           unoptimized
         />
         <div className="opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75"></div>
-        <div className="opacity-0 translate-y-5 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end products-center gap-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-20">
+        <div className="opacity-0 translate-y-5 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end products-center gap-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-30">
           <Button
             onClick={() => router.push(product.url)}
             variant={"outline"}
