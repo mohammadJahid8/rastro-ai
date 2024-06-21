@@ -30,6 +30,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 const inter = Inter({ subsets: ['latin'] });
 type Props = {};
 
@@ -139,7 +140,7 @@ const UserAvatar = () => (
 );
 
 const Brand = () => (
-  <div className='flex items-center justify-between gap-2'>
+  <Link href='/' className='flex items-center justify-between gap-2'>
     <Image src={primaryLogo} alt='rastro-ai' width={44} height={44} />
     <p
       className={cn(
@@ -149,7 +150,7 @@ const Brand = () => (
     >
       Rastro
     </p>
-  </div>
+  </Link>
 );
 
 const LanguageSelect = ({

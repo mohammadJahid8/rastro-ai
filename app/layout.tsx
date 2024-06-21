@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import './globals.css';
+import Navbar from '@/components/global/Navbar';
 
 // const inter = Inter({ subsets: ["latin"] });
 const manrope = Manrope({ subsets: ['latin'] });
@@ -17,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={manrope.className}>{children}</body>
+      <body className={`mx-auto p-5 md:p-10 ${manrope.className}`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
