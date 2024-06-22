@@ -18,6 +18,7 @@ const config = {
       'xl': '1280px',
       "2xl": "1400px",
       "3xl": "1650px",
+      "4xl": "1850px",
     },
     container: {
       center: true,
@@ -25,6 +26,9 @@ const config = {
       
     },
     extend: {
+      boxShadow: {
+        'custom': '0px 8px 24px 0px rgba(0, 0, 0, 0.10)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

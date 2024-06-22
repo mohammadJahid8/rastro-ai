@@ -13,8 +13,6 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* --rastro-blue: 236 93% 48%; */
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
 
@@ -75,4 +73,31 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+.product-shadow {
+  box-shadow: '0px 8px 24px 0px rgba(0, 0, 0, 0.10)';
+}
+@media screen and (min-width: 768px) {
+  .product-shadow {
+    box-shadow: '0px 8px 24px 0px rgba(0, 0, 0, 0.10)';
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: #d9d9d9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 20px;
+  background: #d9d9d9;
 }

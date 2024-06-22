@@ -1,9 +1,9 @@
-import { getProduct } from "@/actions/getProductById";
-import { getProducts } from "@/app/page";
-import ProductCard from "@/components/global/ProductCard";
-import Products from "@/components/global/Products";
-import ProductsCard from "@/components/global/ProductsCard";
-import axiosInstance from "@/utils/axiosInstance";
+import { getProduct } from '@/actions/getProductById';
+import { getProducts } from '@/app/page';
+import ProductCard from '@/components/global/ProductCard';
+import ProductsCard from '@/components/global/ProductsCard';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   params: {
@@ -30,12 +30,22 @@ const page = async ({ params }: Props) => {
   console.log(product);
 
   return (
-    <div className="grid grid-cols-4 md:grid-cols-5 gap-4 h-full">
-      <div className="col-span-4 md:col-span-2">
-        <ProductCard product={product} />
+    <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>
+      <div className='lg:w-1/3 xl:w-[30%] 3xl:w-[25%] '>
+        <div className='flex items-start gap-4 w-full'>
+          <div className='w-12 hidden lg:block'>
+            <Link
+              href={'/'}
+              className='bg-white w-12 shadow-md h-9 rounded-[8px] p-1 flex justify-center items-center group'
+            >
+              <ChevronLeft className='h-6 w-6 text-black ' />
+            </Link>
+          </div>
+          <ProductCard product={product} />
+        </div>
       </div>
-      <div className="col-span-4 md:col-span-3 h-screen overflow-y-scroll">
-        <div className="columns-2 xs:columns-2 md:columns-3 gap-2 ">
+      <div className='lg:w-2/3 xl:w-[70%] 3xl:w-[75%]  px-5 lg:px-0'>
+        <div className='columns-1 xs:columns-2 md:columns-3 3xl:columns-5 gap-2 '>
           {products?.map((item: any, index: number) => (
             <ProductsCard key={item.id} product={item} />
           ))}

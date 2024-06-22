@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${manrope.className}`}>
         <Context>
-          <div className={`mx-auto px-5 md:px-10`}>
+          <div className={`mx-auto `}>
             <Navbar />
             {children}
           </div>
