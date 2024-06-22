@@ -1,11 +1,14 @@
-import React from 'react'
+import { Spinner } from '@/components/ui/spinner';
+import React from 'react';
 
-type Props = {}
+type Props = {};
 
 const loading = (props: Props) => {
   return (
-    <div>loading</div>
-  )
-}
+    <div className='h-[80vh] flex items-center justify-center'>
+      <Spinner />
+    </div>
+  );
+};
 
-export default loading
+export default loading;

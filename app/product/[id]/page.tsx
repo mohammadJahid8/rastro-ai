@@ -1,5 +1,4 @@
-import { getProduct } from '@/actions/getProductById';
-import { getProducts } from '@/app/page';
+import { getProduct, getProducts } from '@/actions/dataFetcher';
 import ProductCard from '@/components/global/ProductCard';
 import ProductsCard from '@/components/global/ProductsCard';
 import { ChevronLeft } from 'lucide-react';
@@ -10,6 +9,19 @@ type Props = {
     id: string;
   };
 };
+
+// export async function getProducts() {
+//   const res = await fetch(
+//     'https://sourcerer-production.up.railway.app/api/products?page_size=20'
+//   );
+//   const products = await res.json();
+
+//   // const response = await axiosInstance.get(`/products?page_size=20`);
+
+//   // console.log({ products });
+
+//   return products;
+// }
 
 const page = async ({ params }: Props) => {
   let product;
@@ -27,7 +39,7 @@ const page = async ({ params }: Props) => {
     console.log(error);
   }
 
-  console.log(product);
+  console.log({ products });
 
   return (
     <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>

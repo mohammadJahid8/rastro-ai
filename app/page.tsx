@@ -1,12 +1,13 @@
+import { getProducts } from '@/actions/dataFetcher';
 import Navbar from '@/components/global/Navbar';
 import Products from '@/components/global/Products';
 import axiosInstance from '@/utils/axiosInstance';
 
-export async function getProducts() {
-  const response = await axiosInstance.get(`/products?page_size=20`);
+// export async function getProducts() {
+//   const response = await axiosInstance.get(`/products?page_size=20`);
 
-  return response?.data;
-}
+//   return response?.data;
+// }
 
 export const revalidate = 3600;
 

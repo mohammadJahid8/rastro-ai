@@ -1,7 +1,6 @@
 'use client';
 
 import { auth } from '@/firebase/firebase';
-
 import {
   onAuthStateChanged,
   signInWithPopup,
@@ -10,14 +9,30 @@ import {
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-export const AppContext = createContext(null);
+type UserType = {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+} | null;
 
-export function useAppContext(): any {
-  return useContext(AppContext);
+type AppContextType = {
+  handleLogin: () => Promise<void>;
+  handleLogout: () => Promise<void>;
+  user: UserType;
+};
+
+export const AppContext = createContext<AppContextType | null>(null);
+
+export function useAppContext(): AppContextType {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within an AppProvider');
+  }
+  return context;
 }
 
-function Context({ children }: any) {
-  const [user, setUser] = useState<any>({});
+function Context({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<UserType>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -26,8 +41,8 @@ function Context({ children }: any) {
           localStorage.setItem('token', idToken);
           setUser({
             uid: currentUser.uid,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
+            displayName: currentUser.displayName as string,
+            photoURL: currentUser.photoURL as string,
           });
         });
       } else {
