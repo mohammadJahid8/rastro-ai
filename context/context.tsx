@@ -1,5 +1,6 @@
 'use client';
 
+import { getProducts } from '@/actions/dataFetcher';
 import { auth } from '@/firebase/firebase';
 import {
   onAuthStateChanged,
@@ -28,6 +29,8 @@ export function useAppContext(): any {
 function Context({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserType>(null);
   const [loadingUser, setLoadingUser] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [products, setProducts] = useState<any>();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -69,9 +72,24 @@ function Context({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const searchProducts = async () => {
+    const searchedProducts = await getProducts(1, 21, searchQuery);
+    setProducts(searchedProducts);
+  };
+
   return (
     <AppContext.Provider
-      value={{ handleLogin, handleLogout, user, loadingUser }}
+      value={{
+        handleLogin,
+        handleLogout,
+        user,
+        loadingUser,
+        searchQuery,
+        setSearchQuery,
+        searchProducts,
+        products,
+        setProducts,
+      }}
     >
       {children}
     </AppContext.Provider>

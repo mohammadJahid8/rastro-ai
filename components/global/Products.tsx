@@ -6,15 +6,22 @@ import { SkeletonCard } from './SkeletonCard';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
+import { useAppContext } from '@/context/context';
 
 const ProductsCard = dynamic(() => import('./ProductsCard'), {
   loading: () => <SkeletonCard />,
 });
 
 const Products = ({ initialProducts }: any) => {
+  const { setProducts, products } = useAppContext();
+
   const [page, setPage] = useState(1);
-  const [products, setProducts] = useState<any>(initialProducts);
+
   const { ref, inView } = useInView();
+
+  useEffect(() => {
+    setProducts(initialProducts);
+  }, [initialProducts]);
 
   const loadMoreProducts = async () => {
     const nextPage = page + 1;
@@ -23,11 +30,8 @@ const Products = ({ initialProducts }: any) => {
     setPage(nextPage);
   };
 
-  console.log({ inView });
-
   useEffect(() => {
     if (inView) {
-      console.log('insideee');
       loadMoreProducts();
     }
   }, [inView]);

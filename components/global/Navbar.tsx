@@ -215,15 +215,28 @@ const UserInput = ({
   img: Blob | MediaSource | null;
   setImg: any;
 }) => {
+  const { setSearchQuery, searchProducts } = useAppContext();
+
   const handleRemoveImage = () => {
     setImg(null);
   };
 
+  // const  = () => {
+  //   setImg(null);
+  // };
+
   return (
     <>
       <div className='relative flex items-center w-full lg:w-[22rem]  xl:!w-[420px]'>
-        <Search className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform' />
-        <Input placeholder='Search' className='w-full' />
+        <Search
+          className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform cursor-pointer'
+          onClick={searchProducts}
+        />
+        <Input
+          placeholder='Search'
+          className='w-full'
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
       <div className='relative'>
         <input
