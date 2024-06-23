@@ -14,9 +14,7 @@ const ProductsCard = dynamic(() => import('./ProductsCard'), {
 const Products = ({ initialProducts }: any) => {
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState<any>(initialProducts);
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-  });
+  const { ref, inView } = useInView();
 
   const loadMoreProducts = async () => {
     const nextPage = page + 1;
@@ -25,20 +23,26 @@ const Products = ({ initialProducts }: any) => {
     setPage(nextPage);
   };
 
+  console.log({ inView });
+
   useEffect(() => {
     if (inView) {
+      console.log('insideee');
       loadMoreProducts();
     }
   }, [inView]);
 
   return (
-    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10'>
-      {products?.map((item: any, index: number) => (
-        <ProductsCard key={item.id} product={item} />
-      ))}
-
-      <div ref={ref} />
-    </div>
+    <>
+      <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10'>
+        {products?.map((item: any, index: number) => (
+          <ProductsCard key={item.id} product={item} />
+        ))}
+      </div>
+      <div ref={ref} className='invisible'>
+        Load more
+      </div>
+    </>
   );
 };
 
