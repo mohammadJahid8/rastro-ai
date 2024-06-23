@@ -1,4 +1,4 @@
-import { getProduct, getProducts } from '@/actions/dataFetcher';
+import { getProduct, getProducts, getSuggestions } from '@/actions/dataFetcher';
 import ProductCard from '@/components/global/ProductCard';
 import ProductsCard from '@/components/global/ProductsCard';
 import { ChevronLeft } from 'lucide-react';
@@ -10,36 +10,22 @@ type Props = {
   };
 };
 
-// export async function getProducts() {
-//   const res = await fetch(
-//     'https://sourcerer-production.up.railway.app/api/products?page_size=20'
-//   );
-//   const products = await res.json();
-
-//   // const response = await axiosInstance.get(`/products?page_size=20`);
-
-//   // console.log({ products });
-
-//   return products;
-// }
-
 const page = async ({ params }: Props) => {
   let product;
   try {
     product = await getProduct(params.id);
   } catch (error: any) {
-    //TODO: error handling
     console.log(error);
   }
 
-  let products = null;
+  let suggestions = null;
   try {
-    products = await getProducts();
+    suggestions = await getSuggestions(params.id);
   } catch (error: any) {
     console.log(error);
   }
 
-  console.log({ products });
+  console.log({ product });
 
   return (
     <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>
@@ -58,7 +44,7 @@ const page = async ({ params }: Props) => {
       </div>
       <div className='lg:w-2/3 xl:w-[70%] 3xl:w-[75%]  px-5 lg:px-0'>
         <div className='columns-1 xs:columns-2 md:columns-3 3xl:columns-5 gap-2 '>
-          {products?.map((item: any, index: number) => (
+          {suggestions?.map((item: any, index: number) => (
             <ProductsCard key={item.id} product={item} />
           ))}
         </div>

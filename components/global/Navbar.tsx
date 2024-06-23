@@ -42,15 +42,19 @@ const Navbar = (props: Props) => {
   const [img, setImg] = useState<Blob | MediaSource | null>(null);
 
   return (
-    <div className='w-full flex flex-col lg:flex-row justify-between items-center my-10 px-5 md:px-10'>
+    <div className='w-full flex flex-col lg:flex-row justify-between items-center mt-8 mb-10 px-5 md:px-10'>
       {/* Mobile responsive starts */}
       <div className='flex justify-between items-center w-full lg:hidden '>
         <Brand />
         {/* User Avatar for Mobile */}
         <div className='lg:hidden flex items-center gap-2'>
-          <UserAvatar />
+          {user && <UserAvatar user={user} />}
           <div className=''>
-            <UserDropdownMenu handleLogout={handleLogout} />
+            <UserDropdownMenu
+              handleLogout={handleLogout}
+              handleLogin={handleLogin}
+              user={user}
+            />
           </div>
         </div>
       </div>
@@ -69,17 +73,29 @@ const Navbar = (props: Props) => {
         </div>
       </div>
       <div className='hidden lg:flex w-full lg:w-auto lg:flex-1 justify-end items-center gap-5 mt-4 lg:mt-0'>
-        <Button
-          variant='default'
-          className={'px-[12px] py-[9px]'}
-          onClick={handleLogin}
-        >
-          Create an Account
-        </Button>
+        {user ? (
+          <Button
+            variant='default'
+            className={'px-[12px] py-[9px]'}
+            onClick={handleLogin}
+          >
+            Saved products
+          </Button>
+        ) : (
+          <Button
+            variant='default'
+            className={'px-[12px] py-[9px]'}
+            onClick={handleLogin}
+          >
+            Create an Account
+          </Button>
+        )}
         <LanguageSelect language={language} setLanguage={setLanguage} />
-        <div className='hidden lg:block'>
-          <UserAvatar />
-        </div>
+        {user && (
+          <div className='hidden lg:block'>
+            <UserAvatar user={user} handleLogout={handleLogout} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -87,22 +103,30 @@ const Navbar = (props: Props) => {
 
 export default Navbar;
 
-const UserDropdownMenu = ({ handleLogout }: any) => (
+const UserDropdownMenu = ({ user, handleLogout, handleLogin }: any) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Ellipsis />
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuGroup>
-        <DropdownMenuItem>
-          <span className='text-sm font-semibold'>Saved Product</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem className='block lg:hidden' onClick={handleLogout}>
-          <span className='text-sm font-semibold text-red-600 inline-flex gap-2 items-center'>
-            <LogOut className='w-4 h-4' />
-            Logout
-          </span>
-        </DropdownMenuItem>
+        {user && (
+          <DropdownMenuItem>
+            <span className='text-sm font-semibold'>Saved Product</span>
+          </DropdownMenuItem>
+        )}
+        {user ? (
+          <DropdownMenuItem className='block lg:hidden' onClick={handleLogout}>
+            <span className='text-sm font-semibold text-red-600 inline-flex gap-2 items-center'>
+              <LogOut className='w-4 h-4' />
+              Logout
+            </span>
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem className='block lg:hidden' onClick={handleLogin}>
+            <span className='text-sm font-semibold'>Create an account</span>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <span className='text-sm font-semibold'>Language</span>
@@ -126,16 +150,16 @@ const UserDropdownMenu = ({ handleLogout }: any) => (
   </DropdownMenu>
 );
 
-const UserAvatar = () => (
+const UserAvatar = ({ user, handleLogout }: any) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button className='w-[44px] h-[44px] rounded-full relative'>
-        <Image src={userImg} alt='user' fill className='rounded-full' />
+        <Image src={user?.photoURL} alt='user' fill className='rounded-full' />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent className='hidden lg:block'>
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           <span className='text-sm font-semibold text-red-600 inline-flex gap-2 items-center'>
             <LogOut className='w-4 h-4' />
             Logout

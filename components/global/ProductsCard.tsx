@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
-import ExternalLink from '../icons/ExternalLink';
 import { ExternalLinkIcon } from 'lucide-react';
 
 type Props = {
@@ -27,7 +26,7 @@ const ProductsCard = ({ product }: Props) => {
     >
       <div className='relative'>
         <Image
-          src={product.scanned_product.image_public_urls[0]}
+          src={product.scanned_product.thumbnail_public_url}
           alt={product.title_french}
           className='w-full rounded-lg'
           width='0'

@@ -9,21 +9,15 @@ import {
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type UserType = {
+export type UserType = {
   uid: string;
   displayName: string;
   photoURL: string;
 } | null;
 
-type AppContextType = {
-  handleLogin: () => Promise<void>;
-  handleLogout: () => Promise<void>;
-  user: UserType;
-};
+export const AppContext = createContext<any | null>(null);
 
-export const AppContext = createContext<AppContextType | null>(null);
-
-export function useAppContext(): AppContextType {
+export function useAppContext(): any {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('useAppContext must be used within an AppProvider');
@@ -33,6 +27,7 @@ export function useAppContext(): AppContextType {
 
 function Context({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserType>(null);
+  const [loadingUser, setLoadingUser] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -44,10 +39,12 @@ function Context({ children }: { children: React.ReactNode }) {
             displayName: currentUser.displayName as string,
             photoURL: currentUser.photoURL as string,
           });
+          setLoadingUser(false);
         });
       } else {
         setUser(null);
         localStorage.removeItem('token');
+        setLoadingUser(false);
       }
     });
 
@@ -73,7 +70,9 @@ function Context({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ handleLogin, handleLogout, user }}>
+    <AppContext.Provider
+      value={{ handleLogin, handleLogout, user, loadingUser }}
+    >
       {children}
     </AppContext.Provider>
   );

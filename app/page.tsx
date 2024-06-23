@@ -1,15 +1,12 @@
 import { getProducts } from '@/actions/dataFetcher';
-import Navbar from '@/components/global/Navbar';
-import Products from '@/components/global/Products';
-import axiosInstance from '@/utils/axiosInstance';
+// import Products from '@/components/global/Products';
+import dynamic from 'next/dynamic';
 
-// export async function getProducts() {
-//   const response = await axiosInstance.get(`/products?page_size=20`);
+const Products = dynamic(() => import('@/components/global/Products'), {
+  loading: () => <p>Loading...</p>,
+});
 
-//   return response?.data;
-// }
-
-export const revalidate = 3600;
+export const revalidate = 30;
 
 export default async function Home() {
   let products = null;
