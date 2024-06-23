@@ -3,17 +3,19 @@ import Products from '@/components/global/Products';
 
 export const revalidate = 30;
 
+const page_size = 21;
+
 export default async function Home() {
-  let products = null;
+  let initialProducts = null;
   try {
-    products = await getProducts();
+    initialProducts = await getProducts(1, page_size);
   } catch (error: any) {
     console.log(error);
   }
 
   return (
     <div className='px-5 md:px-10'>
-      <Products products={products} />
+      <Products initialProducts={initialProducts} />
     </div>
   );
 }

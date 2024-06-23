@@ -24,9 +24,9 @@ export async function getSuggestions(id: string) {
 
 
 
-export async function getProducts() {
+export async function getProducts(page:string|number,page_size:string|number) {
   const res = await fetch(
-    `${BASE_URL}/products?page_size=21`,{ next: { revalidate: 30 } }
+    `${BASE_URL}/products?page=${page}&page_size=${page_size}`,{ next: { revalidate: 30 } }
   );
   const products = await res.json();
 
