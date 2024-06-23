@@ -10,7 +10,7 @@ const Loading = (props: Props) => {
     //   <Spinner />
     // </div>
 
-    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10 px-5 lg:px-10'>
+    <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-3 2xl:columns-6 3xl:columns-7 gap-4 mt-10 px-5 lg:px-10'>
       {Array.from({ length: 25 }).map((_, i) => (
         <SkeletonCard key={i} />
       ))}

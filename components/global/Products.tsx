@@ -8,9 +8,7 @@ import { getProducts } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/context/context';
 
-const ProductsCard = dynamic(() => import('./ProductsCard'), {
-  loading: () => <SkeletonCard />,
-});
+const ProductsCard = dynamic(() => import('./ProductsCard'));
 
 const Products = ({ initialProducts }: any) => {
   const { setProducts, products } = useAppContext();
