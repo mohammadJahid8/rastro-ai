@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { ExternalLinkIcon } from 'lucide-react';
@@ -11,7 +11,7 @@ type Props = {
 
 const ProductsCard = ({ product }: Props) => {
   const router = useRouter();
-
+  const [isImageLoading, setImageLoading] = useState(true);
   const closesAt: Date = new Date(product.closes_at);
   const now: Date = new Date();
   const isLessThan24: boolean =
@@ -28,11 +28,15 @@ const ProductsCard = ({ product }: Props) => {
         <Image
           src={product.scanned_product.thumbnail_public_url}
           alt={product.title_french}
-          className='w-full rounded-lg'
           width='0'
           height='0'
           quality={100}
           unoptimized
+          priority
+          onLoad={() => setImageLoading(false)}
+          className={`${
+            isImageLoading ? 'bg-gray-200 min-h-40' : ''
+          } w-full rounded-lg`}
         />
         <div className='opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75'></div>
         <div className='opacity-0 translate-y-5 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end products-center gap-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-30'>

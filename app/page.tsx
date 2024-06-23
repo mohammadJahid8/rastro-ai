@@ -1,10 +1,5 @@
 import { getProducts } from '@/actions/dataFetcher';
-// import Products from '@/components/global/Products';
-import dynamic from 'next/dynamic';
-
-const Products = dynamic(() => import('@/components/global/Products'), {
-  loading: () => <p>Loading...</p>,
-});
+import Products from '@/components/global/Products';
 
 export const revalidate = 30;
 

@@ -17,7 +17,7 @@ import {
 
 const ProductCard = ({ product }: any) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isImageLoading, setImageLoading] = useState(true);
   const toggleDescription = () => {
     setIsOpen(!isOpen);
   };
@@ -55,11 +55,15 @@ const ProductCard = ({ product }: any) => {
                 <Image
                   src={url}
                   alt={product.title_french}
-                  className='max-h-[600px] object-cover w-full lg:rounded-lg'
                   width='0'
                   height='0'
                   quality={100}
                   unoptimized
+                  priority
+                  onLoad={() => setImageLoading(false)}
+                  className={`${
+                    isImageLoading ? 'bg-gray-200 min-h-40' : ''
+                  } max-h-[600px] object-cover w-full lg:rounded-lg`}
                 />
               </CarouselItem>
             ))}

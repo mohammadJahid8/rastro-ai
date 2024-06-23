@@ -2,11 +2,12 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { SkeletonCard } from './SkeletonCard';
 
 // import ProductsCard from "./ProductsCard";
 
 const ProductsCard = dynamic(() => import('./ProductsCard'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <SkeletonCard />,
 });
 
 const Products = ({ products }: any) => {

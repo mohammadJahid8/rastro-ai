@@ -1,8 +1,13 @@
 import { getProduct, getProducts, getSuggestions } from '@/actions/dataFetcher';
 import ProductCard from '@/components/global/ProductCard';
-import ProductsCard from '@/components/global/ProductsCard';
+import { SkeletonCard } from '@/components/global/SkeletonCard';
 import { ChevronLeft } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+
+const ProductsCard = dynamic(() => import('@/components/global/ProductsCard'), {
+  loading: () => <SkeletonCard />,
+});
 
 type Props = {
   params: {
@@ -25,8 +30,6 @@ const page = async ({ params }: Props) => {
     console.log(error);
   }
 
-  console.log({ product });
-
   return (
     <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>
       <div className='lg:w-1/3 xl:w-[30%] 3xl:w-[25%] '>
@@ -43,7 +46,7 @@ const page = async ({ params }: Props) => {
         </div>
       </div>
       <div className='lg:w-2/3 xl:w-[70%] 3xl:w-[75%]  px-5 lg:px-0'>
-        <div className='columns-1 xs:columns-2 md:columns-3 3xl:columns-5 gap-2 '>
+        <div className=' columns-1 xs:columns-2 md:columns-3 3xl:columns-5 gap-2'>
           {suggestions?.map((item: any, index: number) => (
             <ProductsCard key={item.id} product={item} />
           ))}
