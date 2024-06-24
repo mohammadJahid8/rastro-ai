@@ -14,7 +14,7 @@ export default async function Home() {
   }
 
   return (
-    <div className='px-5 md:px-10'>
+    <div className="px-5 md:px-10">
       <Products initialProducts={initialProducts} />
     </div>
   );
