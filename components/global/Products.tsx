@@ -2,13 +2,13 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { SkeletonCard } from './SkeletonCard';
+
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/context/context';
 
-const ProductsCard = dynamic(() => import('./ProductsCard'));
+import ProductsCard from './ProductsCard';
 
 const Products = ({ initialProducts }: any) => {
   const { setProducts, products } = useAppContext();
