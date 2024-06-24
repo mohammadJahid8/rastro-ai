@@ -6,16 +6,23 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
-import { useAppContext } from '@/context/context';
+import { useAppContext } from '@/providers/context/context';
+
+
+
 
 import ProductsCard from './ProductsCard';
 
 const Products = ({ initialProducts }: any) => {
   const { setProducts, products } = useAppContext();
 
+
   const [page, setPage] = useState(1);
 
   const { ref, inView } = useInView();
+
+
+
 
   useEffect(() => {
     setProducts(initialProducts);
