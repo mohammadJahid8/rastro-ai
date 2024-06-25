@@ -6,7 +6,7 @@ import cameraPlus from '/public/logo/cameraPlus.jpg';
 
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Ellipsis, LogOut, Search, XIcon } from 'lucide-react';
+import { Ellipsis, Loader2, LogOut, Search, XIcon } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -36,6 +36,8 @@ import { useTranslation } from 'react-i18next';
 import { usePathname, useRouter } from 'next/navigation';
 import i18nConfig from '@/i18nConfig';
 import clsx from 'clsx';
+import { toast } from 'sonner';
+import { Spinner } from '../ui/spinner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -328,28 +330,47 @@ const UserInput = ({
   setImg: any;
   t: any;
 }) => {
-  const { setSearchQuery, searchProducts, searchByImage } = useAppContext();
+  const { setSearchQuery, searchProducts, searchByImage, isSearching } =
+    useAppContext();
 
-  const handleRemoveImage = () => {
+  const handleSearchProductsOrRemoveImage = () => {
     setImg(null);
+    searchProducts();
   };
 
   const placeholderSearch = t('search');
 
   useEffect(() => {
     if (img) {
-      searchByImage(img);
+      const handleSearchImage = async () => {
+        const result = await searchByImage(img);
+
+        if (!result.success) {
+          handleSearchProductsOrRemoveImage();
+          toast.error(result?.message, {
+            position: 'top-center',
+          });
+        }
+      };
+      handleSearchImage();
     }
   }, [img]);
 
   return (
     <>
       <div className='relative flex items-center w-full lg:w-[22rem]  xl:!w-[420px]'>
-        <Search
-          className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform cursor-pointer'
-          onClick={searchProducts}
-        />
+        {isSearching ? (
+          <div className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform flex items-center'>
+            <Loader2 className='animate-spin' />
+          </div>
+        ) : (
+          <Search
+            className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 transform cursor-pointer'
+            onClick={handleSearchProductsOrRemoveImage}
+          />
+        )}
         <Input
+          disabled={isSearching}
           placeholder={`${placeholderSearch}`}
           className='w-full'
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -360,6 +381,7 @@ const UserInput = ({
           id='image'
           className='hidden'
           type='file'
+          disabled={isSearching}
           onChange={(e) => {
             //@ts-ignore
             setImg(e?.target?.files[0]);
@@ -377,7 +399,7 @@ const UserInput = ({
             </div>
             <button
               className='absolute -top-2 -right-1 bg-white rounded-full border border-black p-1'
-              onClick={handleRemoveImage}
+              onClick={handleSearchProductsOrRemoveImage}
             >
               <XIcon className='h-4 w-4 text-black ' />
             </button>

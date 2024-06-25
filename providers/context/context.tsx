@@ -32,6 +32,7 @@ function Context({ children }: { children: React.ReactNode }) {
   const [loadingUser, setLoadingUser] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [products, setProducts] = useState<any>();
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -65,7 +66,6 @@ function Context({ children }: { children: React.ReactNode }) {
 
   const handleLogout = async () => {
     try {
-      console.log('inside logout');
       await signOut(auth);
       localStorage.removeItem('token');
     } catch (error) {
@@ -74,24 +74,40 @@ function Context({ children }: { children: React.ReactNode }) {
   };
 
   const searchProducts = async () => {
+    setIsSearching(true);
     const searchedProducts = await getProducts(1, 21, searchQuery);
     setProducts(searchedProducts);
+    setIsSearching(false);
   };
 
   const searchByImage = async (imageData: File) => {
     try {
+      setIsSearching(true);
       const formData = new FormData();
       formData.append('image', imageData);
-      const response = await axiosInstance.post('/image-search/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
+      const response = await axiosInstance.post(
+        '/products/image-search/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
       setProducts(response.data);
+      setIsSearching(false);
+      return {
+        success: true,
+        message: 'fetched',
+      };
     } catch (error) {
       console.error('Error searching visually similar products:', error);
-      return [];
+      setIsSearching(false);
+      return {
+        success: false,
+        message: 'No matches found. Try another image.',
+      };
     }
   };
 
@@ -108,6 +124,7 @@ function Context({ children }: { children: React.ReactNode }) {
         products,
         setProducts,
         searchByImage,
+        isSearching,
       }}
     >
       {children}
