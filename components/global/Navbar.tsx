@@ -149,71 +149,107 @@ const UserDropdownMenu = ({
   handleLogin,
   t,
   handleLangChange,
-}: any) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Ellipsis />
-    </DropdownMenuTrigger>
-    <DropdownMenuContent>
-      <DropdownMenuGroup>
-        {user && (
-          <DropdownMenuItem>
-            <span className="text-sm font-semibold">{t("saved_products")}</span>
-          </DropdownMenuItem>
-        )}
-        {user ? (
-          <DropdownMenuItem className="block lg:hidden" onClick={handleLogout}>
-            <span className="text-sm font-semibold text-red-600 inline-flex gap-2 items-center">
-              <LogOut className="w-4 h-4" />
-              {t("log_out")}
-            </span>
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem className="block lg:hidden" onClick={handleLogin}>
-            <span className="text-sm font-semibold">
-              {" "}
-              {t("create_account")}
-            </span>
-          </DropdownMenuItem>
-        )}
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <span className="text-sm font-semibold">{t("language")}</span>
-          </DropdownMenuSubTrigger>
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              <DropdownMenuItem
-                textValue="en"
-                onClick={() => {
-                  handleLangChange("en");
-                }}
-              >
-                <span className="text-xs font-normal">{t("english")}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                textValue="fr"
-                onClick={() => {
-                  handleLangChange("fr");
-                }}
-              >
-                <span className="text-xs font-normal">{t("french")}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                textValue="de"
-                onClick={() => {
-                  handleLangChange("de");
-                }}
-              >
-                <span className="text-xs font-normal">{t("german")}</span>
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
-      </DropdownMenuGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+}: any) => {
 
+   const [menuOpen, setMenuOpen] = useState(false);
+   const [hovered, setHovered] = useState(false);
+
+   const toggleMenu = () => {
+     setMenuOpen((prev) => !prev);
+   };
+
+   const handleMouseEnter = () => {
+     setHovered(true);
+     setMenuOpen(true);
+   };
+
+   const handleMouseLeave = () => {
+     setHovered(false);
+     if (!hovered) {
+       setMenuOpen(false);
+     }
+   };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Ellipsis />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuGroup>
+          {user && (
+            <DropdownMenuItem>
+              <span className="text-sm font-semibold">
+                {t("saved_products")}
+              </span>
+            </DropdownMenuItem>
+          )}
+          {user ? (
+            <DropdownMenuItem
+              className="block lg:hidden"
+              onClick={handleLogout}
+            >
+              <span className="text-sm font-semibold text-red-600 inline-flex gap-2 items-center">
+                <LogOut className="w-4 h-4" />
+                {t("log_out")}
+              </span>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem className="block lg:hidden" onClick={handleLogin}>
+              <span className="text-sm font-semibold">
+                {" "}
+                {t("create_account")}
+              </span>
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger
+              onClick={toggleMenu}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span className="text-sm font-semibold">{t("language")}</span>
+            </DropdownMenuSubTrigger>
+            {menuOpen && (
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem
+                    textValue="en"
+                    onClick={() => {
+                      handleLangChange("en");
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <span className="text-xs font-normal">{t("english")}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    textValue="fr"
+                    onClick={() => {
+                      handleLangChange("fr");
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <span className="text-xs font-normal">{t("french")}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    textValue="de"
+                    onClick={() => {
+                      handleLangChange("de");
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <span className="text-xs font-normal">{t("german")}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            )}
+          </DropdownMenuSub>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+}
 const UserAvatar = ({ user, handleLogout, t }: any) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>

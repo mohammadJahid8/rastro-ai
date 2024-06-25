@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { ExternalLinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 type Props = {
   product: any;
@@ -12,6 +13,16 @@ type Props = {
 
 const ProductsCard = ({ product }: Props) => {
   const router = useRouter();
+
+  const [clicked, setClicked] = useState(false);
+
+  const handleSaveClick = useCallback(async () => {
+
+    setClicked((prev) => !prev);
+  }, []);
+
+
+
   const [isImageLoading, setImageLoading] = useState(true);
   const closesAt: Date = new Date(product.closes_at);
   const now: Date = new Date();
@@ -23,7 +34,6 @@ const ProductsCard = ({ product }: Props) => {
 
   const productTitle =
     currentLocale === "fr" ? product.title_french : product.title;
-
 
   // console.log(product.url);
 
@@ -56,7 +66,14 @@ const ProductsCard = ({ product }: Props) => {
             Drouot
             <ExternalLinkIcon size={15} />
           </Button>
-          <Button className="bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]">
+          <Button
+            onClick={() => handleSaveClick()}
+            // className={`bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]`}
+            className={clsx(
+              "bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]",
+              { "bg-black/60": clicked }
+            )}
+          >
             Save
           </Button>
         </div>
