@@ -1,11 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { SkeletonCard } from './SkeletonCard';
-import dynamic from 'next/dynamic';
 import ProductCard from './ProductCard';
 import ProductsCard from '@/components/global/ProductsCard';
-
-// const ProductsCard = dynamic(() => import('@/components/global/ProductsCard'));
 
 const ProductDetails = ({ product, suggestions }: any) => {
   return (
