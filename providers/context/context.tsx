@@ -2,6 +2,7 @@
 
 import { getProducts } from '@/actions/dataFetcher';
 import { auth } from '@/firebase/firebase';
+import axiosInstance from '@/utils/axiosInstance';
 import {
   onAuthStateChanged,
   signInWithPopup,
@@ -77,6 +78,23 @@ function Context({ children }: { children: React.ReactNode }) {
     setProducts(searchedProducts);
   };
 
+  const searchByImage = async (imageData: File) => {
+    try {
+      const formData = new FormData();
+      formData.append('image', imageData);
+      const response = await axiosInstance.post('/image-search/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error searching visually similar products:', error);
+      return [];
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -89,6 +107,7 @@ function Context({ children }: { children: React.ReactNode }) {
         searchProducts,
         products,
         setProducts,
+        searchByImage,
       }}
     >
       {children}

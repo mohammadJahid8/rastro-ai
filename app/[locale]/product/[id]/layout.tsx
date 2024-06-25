@@ -1,5 +1,6 @@
-import Navbar from "@/components/global/Navbar";
-import React from "react";
+import Navbar from '@/components/global/Navbar';
+import { Toaster } from '@/components/ui/sonner';
+import React from 'react';
 
 type Props = {
   children: React.ReactNode;
