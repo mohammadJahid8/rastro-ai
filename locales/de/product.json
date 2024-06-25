@@ -1,1 +1,8 @@
-{"closing":"Schließen","copy_link":"Link kopieren","country":"Land","description":"Beschreibung","save":"Speichern"}
+{
+  "closing": "Schließen",
+  "copy_link": "Link kopieren",
+  "country": "Land",
+  "description": "Beschreibung",
+  "save": "Speichern",
+  "copied": "In die Zwischenablage kopiert!"
+}

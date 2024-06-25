@@ -126,7 +126,7 @@ const Navbar = (props: Props) => {
           <Button
             variant='default'
             className={'px-[12px] py-[9px]'}
-            onClick={handleLogin}
+            // onClick={handleLogin}
           >
             {t('saved_products')}
           </Button>

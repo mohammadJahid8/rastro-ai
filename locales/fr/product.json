@@ -1,1 +1,8 @@
-{"closing":"Fermeture","copy_link":"Copier le lien","country":"Pays","description":"Description","save":"Sauvegarder"}
+{
+  "closing": "Fermeture",
+  "copy_link": "Copier le lien",
+  "country": "Pays",
+  "description": "Description",
+  "save": "Sauvegarder",
+  "copied": "Copié dans le presse-papiers!"
+}
