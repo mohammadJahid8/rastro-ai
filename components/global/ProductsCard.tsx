@@ -17,11 +17,8 @@ const ProductsCard = ({ product }: Props) => {
   const [clicked, setClicked] = useState(false);
 
   const handleSaveClick = useCallback(async () => {
-
     setClicked((prev) => !prev);
   }, []);
-
-
 
   const [isImageLoading, setImageLoading] = useState(true);
   const closesAt: Date = new Date(product.closes_at);
@@ -40,7 +37,7 @@ const ProductsCard = ({ product }: Props) => {
   return (
     <div
       onClick={() => router.push(`/product/${product.id}`)}
-      className="mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer z-10"
+      className=" mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer z-10"
     >
       <div className="relative">
         <Image
@@ -59,7 +56,10 @@ const ProductsCard = ({ product }: Props) => {
         <div className="opacity-0 group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75"></div>
         <div className="opacity-0 translate-y-5 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 flex justify-end products-center gap-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-30">
           <Button
-            onClick={() => router.push(product.url)}
+            onClick={(e: any) => {
+              e.stopPropagation();
+              window.open(product.url, "_blank");
+            }}
             variant={"outline"}
             className="gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]"
           >
@@ -67,7 +67,10 @@ const ProductsCard = ({ product }: Props) => {
             <ExternalLinkIcon size={15} />
           </Button>
           <Button
-            onClick={() => handleSaveClick()}
+            onClick={(e: any) => {
+              e.stopPropagation();
+              handleSaveClick();
+            }}
             // className={`bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]`}
             className={clsx(
               "bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]",
