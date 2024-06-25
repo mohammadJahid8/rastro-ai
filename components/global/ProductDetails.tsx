@@ -11,7 +11,7 @@ const ProductsCard = dynamic(() => import('@/components/global/ProductsCard'), {
 const ProductDetails = ({ product, suggestions }: any) => {
   return (
     <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>
-      <div className='lg:w-1/3 xl:w-[30%] 3xl:w-[25%] '>
+      <div className='lg:w-1/3 xl:w-[30%]  '>
         <div className='flex items-start gap-4 w-full'>
           <div className='w-12 hidden lg:block'>
             <Link
@@ -24,8 +24,8 @@ const ProductDetails = ({ product, suggestions }: any) => {
           <ProductCard product={product} />
         </div>
       </div>
-      <div className='lg:w-2/3 xl:w-[70%] 3xl:w-[75%]  px-5 lg:px-0'>
-        <div className=' columns-1 xs:columns-2 md:columns-3 3xl:columns-5 gap-2'>
+      <div className='lg:w-2/3 xl:w-[70%] px-5 lg:px-0'>
+        <div className='columns-1 xs:columns-2 md:columns-3 3xl:columns-4 gap-2'>
           {suggestions?.map((item: any, index: number) => (
             <ProductsCard key={item.id} product={item} />
           ))}
