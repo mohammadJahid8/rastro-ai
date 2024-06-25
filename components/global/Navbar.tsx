@@ -35,8 +35,10 @@ import { useAppContext } from "@/providers/context/context";
 import { useTranslation } from "react-i18next";
 import { usePathname, useRouter } from "next/navigation";
 import i18nConfig from "@/i18nConfig";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
+
 type Props = {};
 
 const Navbar = (props: Props) => {
@@ -47,8 +49,9 @@ const Navbar = (props: Props) => {
   const router = useRouter();
   const currentPathname = usePathname();
 
+  const isProductPage = currentPathname.includes("product");
+
   const handleLangChange = (newLocale: string) => {
-    console.log(newLocale);
     // set cookie for next-i18n-router
     const days = 30;
     const date = new Date();
@@ -77,7 +80,12 @@ const Navbar = (props: Props) => {
   const [img, setImg] = useState<Blob | MediaSource | null>(null);
 
   return (
-    <div className="w-full flex flex-col lg:flex-row justify-between items-center mt-8 mb-10 px-5 md:px-10">
+    <div
+      className={clsx(
+        `w-full  flex-col lg:flex-row justify-between items-center mt-8 mb-10 px-5 md:px-10 `,
+        { "hidden md:flex": isProductPage }
+      )}
+    >
       {/* Mobile responsive starts */}
       <div className="flex justify-between items-center w-full lg:hidden ">
         <Brand />
@@ -150,25 +158,24 @@ const UserDropdownMenu = ({
   t,
   handleLangChange,
 }: any) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
-   const [menuOpen, setMenuOpen] = useState(false);
-   const [hovered, setHovered] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
 
-   const toggleMenu = () => {
-     setMenuOpen((prev) => !prev);
-   };
+  const handleMouseEnter = () => {
+    setHovered(true);
+    setMenuOpen(true);
+  };
 
-   const handleMouseEnter = () => {
-     setHovered(true);
-     setMenuOpen(true);
-   };
-
-   const handleMouseLeave = () => {
-     setHovered(false);
-     if (!hovered) {
-       setMenuOpen(false);
-     }
-   };
+  const handleMouseLeave = () => {
+    setHovered(false);
+    if (!hovered) {
+      setMenuOpen(false);
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -248,8 +255,7 @@ const UserDropdownMenu = ({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-
-}
+};
 const UserAvatar = ({ user, handleLogout, t }: any) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>

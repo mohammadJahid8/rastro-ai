@@ -187,20 +187,19 @@ const Buttons = ({
 
   return (
     <>
-      <Link href={productUrl} target="_blank">
-        <Button
-          // onClick={() => {
-          //   router.push(productUrl);
-          //   alert("Done");
-          // }}
-          variant={"outline"}
-          className="gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]"
-        >
-          Drouot
-          {/* <ExternalLink /> */}
-          <ExternalLinkIcon size={15} />
-        </Button>
-      </Link>
+      <Button
+        onClick={(e: any) => {
+          e.stopPropagation();
+          window.open(productUrl, "_blank");
+        }}
+        variant={"outline"}
+        className="gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]"
+      >
+        Drouot
+        {/* <ExternalLink /> */}
+        <ExternalLinkIcon size={15} />
+      </Button>
+
       <Button
         onClick={() => handleSaveClick()}
         className={clsx(

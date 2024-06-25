@@ -1,4 +1,5 @@
 import { getProducts } from '@/actions/dataFetcher';
+import Navbar from '@/components/global/Navbar';
 import Products from '@/components/global/Products';
 
 export const revalidate = 30;
@@ -14,8 +15,11 @@ export default async function Home() {
   }
 
   return (
-    <div className="px-5 md:px-10">
-      <Products initialProducts={initialProducts} />
+    <div className='mx-auto'>
+      <Navbar/>
+      <div className="px-5 md:px-10">
+        <Products initialProducts={initialProducts} />
+      </div>
     </div>
   );
 }

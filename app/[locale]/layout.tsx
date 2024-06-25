@@ -32,11 +32,12 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${manrope.className}`}>
         <Context>
-          <TranslationsProvider resources={resources} locale={locale} namespaces={i18nNamespaces}>
-            <div className={`mx-auto `}>
-              <Navbar />
-              {children}
-            </div>
+          <TranslationsProvider
+            resources={resources}
+            locale={locale}
+            namespaces={i18nNamespaces}
+          >
+            {children}
           </TranslationsProvider>
         </Context>
       </body>
