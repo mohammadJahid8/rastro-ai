@@ -101,6 +101,7 @@ const ProductCard = ({ product }: any) => {
           <Buttons router={router} productUrl={product?.url} />
         </div>
         <Link
+          prefetch={true}
           href={'/'}
           className='lg:hidden absolute top-2 left-2 bg-white shadow-md w-9 h-9 rounded-[8px] p-1 flex justify-center items-center group m-4'
         >
