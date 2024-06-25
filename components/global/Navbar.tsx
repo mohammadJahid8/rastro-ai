@@ -152,9 +152,22 @@ const UserDropdownMenu = ({
 }: any) => {
 
    const [menuOpen, setMenuOpen] = useState(false);
+   const [hovered, setHovered] = useState(false);
 
    const toggleMenu = () => {
      setMenuOpen((prev) => !prev);
+   };
+
+   const handleMouseEnter = () => {
+     setHovered(true);
+     setMenuOpen(true);
+   };
+
+   const handleMouseLeave = () => {
+     setHovered(false);
+     if (!hovered) {
+       setMenuOpen(false);
+     }
    };
 
   return (
@@ -190,7 +203,11 @@ const UserDropdownMenu = ({
             </DropdownMenuItem>
           )}
           <DropdownMenuSub>
-            <DropdownMenuSubTrigger onClick={toggleMenu}>
+            <DropdownMenuSubTrigger
+              onClick={toggleMenu}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <span className="text-sm font-semibold">{t("language")}</span>
             </DropdownMenuSubTrigger>
             {menuOpen && (

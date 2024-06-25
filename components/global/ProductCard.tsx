@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronLeft, ExternalLinkIcon } from "lucide-react";
 import { formatDate } from "@/utils/formatDate";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import {
   Carousel,
@@ -15,6 +15,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 const ProductCard = ({ product }: any) => {
   const { t } = useTranslation();
@@ -176,22 +177,39 @@ const Buttons = ({
 }: {
   router: any;
   productUrl: string;
-}) => (
-  <>
-    <Button
-      onClick={() => {
-        router.push(productUrl);
-        alert("Done");
-      }}
-      variant={"outline"}
-      className="gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]"
-    >
-      Drouot
-      {/* <ExternalLink /> */}
-      <ExternalLinkIcon size={15} />
-    </Button>
-    <Button className="bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]">
-      Save
-    </Button>
-  </>
-);
+}) => {
+  const [clicked, setClicked] = useState(false);
+
+  const handleSaveClick = useCallback(() => {
+    console.log("clicked");
+    setClicked((prev) => !prev);
+  }, []);
+
+  return (
+    <>
+      <Link href={productUrl} target="_blank">
+        <Button
+          // onClick={() => {
+          //   router.push(productUrl);
+          //   alert("Done");
+          // }}
+          variant={"outline"}
+          className="gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]"
+        >
+          Drouot
+          {/* <ExternalLink /> */}
+          <ExternalLinkIcon size={15} />
+        </Button>
+      </Link>
+      <Button
+        onClick={() => handleSaveClick()}
+        className={clsx(
+          "bg-rastro-primary py-0 sm:py-2 px-[6px] sm:px-[12px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]",
+          { "bg-black/60": clicked }
+        )}
+      >
+        {clicked ? "Saved" : " Save"}
+      </Button>
+    </>
+  );
+};

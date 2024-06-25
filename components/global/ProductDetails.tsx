@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { SkeletonCard } from './SkeletonCard';
 import dynamic from 'next/dynamic';
 import ProductCard from './ProductCard';
+
 const ProductsCard = dynamic(() => import('@/components/global/ProductsCard'), {
   loading: () => <SkeletonCard />,
 });
