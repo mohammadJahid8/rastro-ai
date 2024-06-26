@@ -112,7 +112,7 @@ const ProductCard = ({ product }: any) => {
                       } max-h-[500px] h-full object-cover w-full lg:rounded-lg`}
                     />
                   </DialogTrigger>
-                  <DialogContent className="min-h-[100vh] md:h-[80vh] md:max-w-[90vw]  lg:max-w-[70vw] border-none">
+                  <DialogContent className="min-h-[100vh] md:min-h-[80vh] md:max-w-[90vw]  lg:max-w-[70vw] border-none">
                     <Image
                       src={url}
                       // src={
@@ -127,7 +127,7 @@ const ProductCard = ({ product }: any) => {
                       onLoad={() => setImageLoading(false)}
                       className={`${
                         isImageLoading ? "bg-gray-200 min-h-80" : ""
-                      }  h-[100vh] md:max-h-[80vh] object-cover  w-full lg:rounded-lg`}
+                      }  h-[100vh] md:h-[80vh] object-cover  w-full lg:rounded-lg`}
                     />
                   </DialogContent>
                 </Dialog>
