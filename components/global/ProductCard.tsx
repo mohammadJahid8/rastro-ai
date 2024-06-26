@@ -28,8 +28,20 @@ const ProductCard = ({ product }: any) => {
 
   const productTitle =
     currentLocale === "fr" ? product?.title_french : product?.title;
+
   const productDescription =
     currentLocale === "fr" ? product?.description_french : product?.description;
+
+  const getShortDescription = (description: string, limit: number) => {
+    if (description.length <= limit) return description;
+    const shortDescription = description.slice(0, limit);
+    const lastSpaceIndex = shortDescription.lastIndexOf(" ");
+    return lastSpaceIndex === -1
+      ? shortDescription
+      : shortDescription.slice(0, lastSpaceIndex);
+  };
+
+  const shortDescription = getShortDescription(productDescription, 20);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isImageLoading, setImageLoading] = useState(true);
@@ -179,30 +191,28 @@ const ProductCard = ({ product }: any) => {
         </div>
 
         <div className="flex flex-col justify-start items-start gap-1 pb-2">
-          <p
-            className={`flex items-center justify-between text-start font-normal text-base cursor-pointer ${
-              isOpen ? "hidden" : "block"
-            }`}
-            onClick={toggleDescription}
-          >
-            {productDescription.slice(0, 20)}{" "}
-            <span className={`font-semibold ml-1 `}>
-              {t("product:read_more")}
-            </span>
-          </p>
-          <p
-            className={`text-base font-normal transition-opacity duration-300 ${
-              isOpen ? "opacity-100" : "opacity-0 hidden"
-            }`}
-          >
-            {productDescription}{" "}
-            <span
-              className="cursor-pointer font-semibold ml-1"
+          {!isOpen && (
+            <p
+              className="flex items-center justify-between text-start font-normal text-base cursor-pointer"
               onClick={toggleDescription}
             >
-              {t("product:read_less")}
-            </span>
-          </p>
+              {shortDescription}...
+              <span className="font-semibold ml-1">
+                {t("product:read_more")}
+              </span>
+            </p>
+          )}
+          {isOpen && (
+            <p className="text-base font-normal transition-opacity duration-300 opacity-100">
+              {productDescription}
+              <span
+                className="cursor-pointer font-semibold ml-1"
+                onClick={toggleDescription}
+              >
+                {t("product:read_less")}
+              </span>
+            </p>
+          )}
         </div>
       </div>
     </div>
