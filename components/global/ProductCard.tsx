@@ -112,7 +112,7 @@ const ProductCard = ({ product }: any) => {
                       } max-h-[500px] h-full object-cover w-full lg:rounded-lg`}
                     />
                   </DialogTrigger>
-                  <DialogContent className="h-[100vh]  w-full ">
+                  <DialogContent className="h-[70vh] w-full border-none  ">
                     <Image
                       src={url}
                       alt={product?.title_french}
