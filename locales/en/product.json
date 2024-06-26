@@ -1,1 +1,9 @@
-{"closing":"Closing","copy_link":"Copy Link","country":"Country","description":"Description","save":"Save", "copied":"Copied to the clipboard!"}
+{
+  "closing": "Closing",
+  "copy_link": "Copy Link",
+  "country": "Country",
+  "read_more": "Read more",
+  "read_less": "Read less",
+  "save": "Save",
+  "copied": "Copied to the clipboard!"
+}

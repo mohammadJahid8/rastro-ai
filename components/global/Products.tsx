@@ -1,28 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-import { useEffect, useState } from 'react';
-import { getProducts } from '@/actions/dataFetcher';
-import { useInView } from 'react-intersection-observer';
-import { useAppContext } from '@/providers/context/context';
+import { useEffect, useState } from "react";
+import { getProducts } from "@/actions/dataFetcher";
+import { useInView } from "react-intersection-observer";
+import { useAppContext } from "@/providers/context/context";
 
-
-
-
-import ProductsCard from './ProductsCard';
+import ProductsCard from "./ProductsCard";
 
 const Products = ({ initialProducts }: any) => {
   const { setProducts, products } = useAppContext();
 
-
   const [page, setPage] = useState(1);
 
   const { ref, inView } = useInView();
-
-
-
 
   useEffect(() => {
     setProducts(initialProducts);
@@ -43,12 +36,12 @@ const Products = ({ initialProducts }: any) => {
 
   return (
     <>
-      <div className='columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 mt-10'>
+      <div className="columns-1 xs:columns-2 md:columns-3 lg:columns-5 2xl:columns-6 3xl:columns-7 gap-4 ">
         {products?.map((item: any, index: number) => (
           <ProductsCard key={item.id} product={item} />
         ))}
       </div>
-      <div ref={ref} className='invisible'>
+      <div ref={ref} className="invisible">
         Load more
       </div>
     </>

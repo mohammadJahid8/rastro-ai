@@ -15,9 +15,9 @@ export default async function Home() {
   }
 
   return (
-    <div className='mx-auto'>
-      <Navbar />
-      <div className='px-5 md:px-10'>
+    <div className="mx-auto">
+    
+      <div className="px-5 md:px-10 ">
         <Products initialProducts={initialProducts} />
       </div>
     </div>
