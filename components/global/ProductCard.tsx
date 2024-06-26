@@ -112,18 +112,22 @@ const ProductCard = ({ product }: any) => {
                       } max-h-[500px] h-full object-cover w-full lg:rounded-lg`}
                     />
                   </DialogTrigger>
-                  <DialogContent className="h-[70vh] w-full border-none  ">
+                  <DialogContent className="min-h-[100vh] md:h-[80vh] md:max-w-[90vw]  lg:max-w-[70vw] border-none">
                     <Image
                       src={url}
+                      // src={
+                      //   "https://storage.googleapis.com/rastro-img/product_images/3ad56595-0f5c-4bfa-8f20-0b3a7a51dbd1.jpg"
+                      // }
                       alt={product?.title_french}
-                      fill
                       quality={100}
+                      width="0"
+                      height="0"
                       unoptimized
                       priority
                       onLoad={() => setImageLoading(false)}
                       className={`${
                         isImageLoading ? "bg-gray-200 min-h-80" : ""
-                      }  h-full object-cover w-full lg:rounded-lg`}
+                      }  h-[100vh] md:max-h-[80vh] object-cover  w-full lg:rounded-lg`}
                     />
                   </DialogContent>
                 </Dialog>
