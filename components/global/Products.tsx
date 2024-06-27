@@ -25,22 +25,23 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   const { ref, inView } = useInView();
 
   useEffect(() => {
-    setProducts(initialProducts);
+    setProducts(initialProducts || []);
   }, [initialProducts]);
 
   const loadMoreProducts = async () => {
     const nextPage = page + 1;
-    let newProducts: [];
 
     if (suggestionPage && productId) {
-      newProducts = await getSuggestions(productId, nextPage, 21);
-      console.log(newProducts);
+      const newProducts = await getSuggestions(productId, nextPage, 21);
+      setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     } else {
-      newProducts = await getProducts(nextPage, 21);
-      console.log(newProducts);
+      const newProducts = await getProducts(nextPage, 21);
+      setProducts((prevProducts: any) => [
+        ...(prevProducts || []),
+        ...newProducts,
+      ]);
     }
 
-    setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     setPage(nextPage);
   };
 
