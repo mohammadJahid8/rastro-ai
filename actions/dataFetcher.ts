@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 const BASE_URL = "https://sourcerer-production.up.railway.app/api";
 
 export async function getProduct(id: string) {

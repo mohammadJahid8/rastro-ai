@@ -1,5 +1,5 @@
-import { getProducts } from "@/actions/dataFetcher";
-import Products from "@/components/global/Products";
+import { getProducts } from '@/actions/dataFetcher';
+import Products from '@/components/global/Products.1';
 
 export const revalidate = 30;
 
@@ -15,8 +15,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="mx-auto">
-      <div className="px-5 md:px-10 ">
+    <div className='mx-auto'>
+      <div className='px-5 md:px-10 '>
         <Products initialProducts={initialProducts} />
       </div>
     </div>

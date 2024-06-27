@@ -1,23 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-
-import dynamic from 'next/dynamic';
-
 import { useEffect, useState } from 'react';
 import { getProducts, getSuggestions } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/providers/context/context';
-
 import ProductsCard from './ProductsCard';
-import clsx from 'clsx';
+import { Props } from './Products';
 
-type Props = {
-  initialProducts: any;
-  productId?: string;
-  suggestionPage?: boolean;
-};
-
-const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
+export const Products = ({
+  initialProducts,
+  productId,
+  suggestionPage,
+}: Props) => {
   const { setProducts, products } = useAppContext();
 
   const [page, setPage] = useState(1);
@@ -52,19 +46,11 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
   return (
     <>
-      <div
-      // className='masonry-grid'
-      // className={clsx(
-      //   'columns-1 xs:columns-2 md:columns-3 gap-4',
-      //   suggestionPage
-      //     ? 'lg:columns-3 2xl:columns-3 3xl:columns-4'
-      //     : 'lg:columns-5 2xl:columns-6 3xl:columns-7'
-      // )}
-      >
+      <div>
         {products?.map((item: any, index: number) => (
-          // <div key={item.id} className='masonry-grid-item'>
-          <ProductsCard key={item.id} product={item} />
-          // </div>
+          <div>
+            <ProductsCard key={item.id} product={item} />
+          </div>
         ))}
       </div>
       <div ref={ref} className='invisible'>
@@ -73,5 +59,3 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     </>
   );
 };
-
-export default Products;
