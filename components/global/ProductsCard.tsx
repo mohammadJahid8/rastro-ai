@@ -65,12 +65,13 @@ const ProductsCard = ({ product }: Props) => {
           <div
             className={`opacity-0 md:group-hover:opacity-60 absolute h-full w-full top-0 left-0 right-0 z-10 bottom-0 bg-black rounded-lg transition-opacity delay-75`}
           />
-          <div className='opacity-0 hidden translate-y-5 absolute bottom-3 right-1/2 xl:right-[40%] translate-x-1/2 md:flex justify-end products-center gap-2 md:group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-30'>
+          <div className='opacity-0 hidden translate-y-5 absolute bottom-3 right-1/2  translate-x-1/2 md:flex justify-end products-center gap-2 md:group-hover:opacity-100 group-hover:translate-y-0 transition-all delay-75 z-30'>
             <Button
               onClick={(e: any) => {
                 e.stopPropagation();
                 window.open(product.url, '_blank');
               }}
+              size={"sm"}
               variant={'outline'}
               className='gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]'
             >
