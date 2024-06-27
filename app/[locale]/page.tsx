@@ -9,7 +9,6 @@ export default async function Home() {
   let initialProducts = null;
   try {
     initialProducts = await getProducts(1, page_size);
-    console.log(initialProducts);
   } catch (error: any) {
     console.log(error);
   }
