@@ -33,12 +33,12 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       const newProducts = await getSuggestions(productId, nextPage, 21);
       setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     } else {
-      // const res = await axiosInstance.get(
-      //   `/products?page=${nextPage}&page_size=${21}`
-      // );
-      // console.log(res.data);
-      // const newProducts = res.data;
-      const newProducts = await getProducts(nextPage, 21);
+      const res = await axiosInstance.get(
+        `/products?page=${nextPage}&page_size=${21}`
+      );
+      console.log(res.data);
+      const newProducts = res.data;
+      // const newProducts = await getProducts(nextPage, 21);
       setProducts((prevProducts: any) => [
         ...(prevProducts || []),
         ...newProducts,
