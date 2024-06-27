@@ -80,7 +80,11 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       >
         <Masonry gutter='10px'>
           {products?.map((item: any, index: number) => (
-            <ProductsCard key={item.id} product={item} />
+            <ProductsCard
+              key={item.id}
+              product={item}
+              lastElRef={index === products.length - 12 ? ref : null}
+            />
           ))}
         </Masonry>
       </ResponsiveMasonry>

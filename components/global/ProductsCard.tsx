@@ -13,9 +13,7 @@ type Props = {
   product: any;
 };
 
-const ProductsCard = ({ product }: Props) => {
-  const router = useRouter();
-
+const ProductsCard = ({ product, lastElRef }: Props) => {
   const [clicked, setClicked] = useState(false);
 
   const { user, handleLogin } = useAppContext();
@@ -43,7 +41,7 @@ const ProductsCard = ({ product }: Props) => {
   console.log(product.platform);
 
   return (
-    <Link href={`/product/${product.id}`} prefetch={true}>
+    <Link href={`/product/${product.id}`} prefetch={true} ref={lastElRef}>
       <div
         // onClick={() => router.push(`/product/${product.id}`)}
         className=' mb-4 break-inside-avoid p-1 rounded-sm group cursor-pointer z-10'
