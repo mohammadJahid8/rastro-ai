@@ -33,12 +33,12 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       const newProducts = await getSuggestions(productId, nextPage, 21);
       setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     } else {
-      const res = await axiosInstance.get(
-        `/products?page=${nextPage}&page_size=${21}`
-      );
-      console.log(res.data);
-      const newProducts = res.data;
-      // const newProducts = await getProducts(nextPage, 21);
+      // const res = await axiosInstance.get(
+      //   `/products?page=${nextPage}&page_size=${40}`
+      // );
+      // console.log(res.data);
+      // const newProducts = res.data;
+      const newProducts = await getProducts(nextPage, 40);
       setProducts((prevProducts: any) => [
         ...(prevProducts || []),
         ...newProducts,
@@ -83,7 +83,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
             <ProductsCard
               key={item.id}
               product={item}
-              lastElRef={index === products.length - 12 ? ref : null}
+              lastElRef={index === products.length - 23 ? ref : null}
             />
           ))}
         </Masonry>

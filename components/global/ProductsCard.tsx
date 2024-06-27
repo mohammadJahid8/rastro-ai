@@ -11,6 +11,7 @@ import Link from 'next/link';
 
 type Props = {
   product: any;
+  lastElRef: any;
 };
 
 const ProductsCard = ({ product, lastElRef }: Props) => {
@@ -37,8 +38,6 @@ const ProductsCard = ({ product, lastElRef }: Props) => {
 
   const productTitle =
     currentLocale === 'fr' ? product.title_french : product.title;
-
-  console.log(product.platform);
 
   return (
     <Link href={`/product/${product.id}`} prefetch={true} ref={lastElRef}>

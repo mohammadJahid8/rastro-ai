@@ -1,10 +1,10 @@
-import { getProducts } from "@/actions/dataFetcher";
-import Products from "@/components/global/Products";
-import { redirect } from "next/navigation";
+import { getProducts } from '@/actions/dataFetcher';
+import Products from '@/components/global/Products';
+import { redirect } from 'next/navigation';
 
 export const revalidate = 30;
 
-const page_size = 21;
+const page_size = 30;
 
 export default async function Home({
   searchParams,
@@ -24,8 +24,8 @@ export default async function Home({
   }
 
   return (
-    <div className="mx-auto">
-      <div className="px-5 md:px-10 ">
+    <div className='mx-auto'>
+      <div className='px-5 md:px-10 '>
         <Products initialProducts={initialProducts} />
       </div>
     </div>
