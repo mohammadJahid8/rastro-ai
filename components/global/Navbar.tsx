@@ -87,8 +87,6 @@ const Navbar = (props: Props) => {
 
   const [img, setImg] = useState<Blob | MediaSource | null>(null);
 
-  console.log({ user });
-
   return (
     <div
       className={clsx(

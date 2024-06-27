@@ -78,8 +78,6 @@ function Context({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const searchProducts = async () => {
-    console.log('insidee');
-
     setIsSearching(true);
     const searchedProducts = await getProducts(1, 21, searchQuery);
 

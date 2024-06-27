@@ -1,11 +1,11 @@
-import { getProduct, getProducts, getSuggestions } from "@/actions/dataFetcher";
-import Navbar from "@/components/global/Navbar";
-import ProductCard from "@/components/global/ProductCard";
-import ProductDetails from "@/components/global/ProductDetails";
-import { SkeletonCard } from "@/components/global/SkeletonCard";
-import { ChevronLeft } from "lucide-react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
+import { getProduct, getProducts, getSuggestions } from '@/actions/dataFetcher';
+import Navbar from '@/components/global/Navbar';
+import ProductCard from '@/components/global/ProductCard';
+import ProductDetails from '@/components/global/ProductDetails';
+import { SkeletonCard } from '@/components/global/SkeletonCard';
+import { ChevronLeft } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 type Props = {
   params: {
@@ -13,7 +13,7 @@ type Props = {
   };
 };
 
-const page_size = 21;
+const page_size = 60;
 
 const page = async ({ params }: Props) => {
   const product = await getProduct(params.id);

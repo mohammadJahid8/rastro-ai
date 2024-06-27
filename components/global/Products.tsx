@@ -7,7 +7,6 @@ import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/providers/context/context';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import ProductsCard from './ProductsCard';
-import axiosInstance from '@/utils/axiosInstance';
 
 type Props = {
   initialProducts: any;
@@ -20,7 +19,9 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
   const [page, setPage] = useState(1);
 
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+  });
 
   useEffect(() => {
     setProducts(initialProducts || []);
@@ -30,7 +31,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     const nextPage = page + 1;
 
     if (suggestionPage && productId) {
-      const newProducts = await getSuggestions(productId, nextPage, 21);
+      const newProducts = await getSuggestions(productId, nextPage, 40);
       setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     } else {
       // const res = await axiosInstance.get(
@@ -39,10 +40,15 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       // console.log(res.data);
       // const newProducts = res.data;
       const newProducts = await getProducts(nextPage, 40);
-      setProducts((prevProducts: any) => [
-        ...(prevProducts || []),
-        ...newProducts,
-      ]);
+      setProducts((prev: any) => {
+        const newProductIds = new Set(newProducts.map((p: any) => p.id));
+        return nextPage === 1
+          ? newProducts
+          : [
+              ...prev.filter((p: any) => !newProductIds.has(p.id)),
+              ...newProducts,
+            ];
+      });
     }
 
     setPage(nextPage);
@@ -57,7 +63,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   const breakPoints = {
     360: 2,
     640: 3,
-    1024: 5,
+    1024: 4,
     1400: 6,
     1650: 7,
     1850: 8,
@@ -83,7 +89,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
             <ProductsCard
               key={item.id}
               product={item}
-              lastElRef={index === products.length - 23 ? ref : null}
+              lastElRef={index === products.length - 20 ? ref : null}
             />
           ))}
         </Masonry>
