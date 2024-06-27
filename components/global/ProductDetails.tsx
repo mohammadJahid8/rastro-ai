@@ -1,8 +1,8 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import ProductCard from './ProductCard';
-import ProductsCard from '@/components/global/ProductsCard';
-import Products from './Products.1';
+
+import Products from './Products';
 
 const ProductDetails = ({ product, suggestions, productId }: any) => {
   return (
@@ -21,11 +21,6 @@ const ProductDetails = ({ product, suggestions, productId }: any) => {
         </div>
       </div>
       <div className='lg:w-2/3 xl:w-[70%] px-5 lg:px-0'>
-        {/* <div className="columns-1 xs:columns-2 md:columns-3 3xl:columns-4 gap-2">
-          {suggestions?.map((item: any, index: number) => (
-            <ProductsCard key={item.id} product={item} />
-          ))}
-        </div> */}
         <Products
           initialProducts={suggestions}
           suggestionPage={true}

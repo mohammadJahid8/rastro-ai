@@ -1,5 +1,5 @@
 import { getProducts } from '@/actions/dataFetcher';
-import Products from '@/components/global/Products.1';
+import Products from '@/components/global/Products';
 
 export const revalidate = 30;
 

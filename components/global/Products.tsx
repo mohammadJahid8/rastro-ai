@@ -1,15 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import dynamic from 'next/dynamic';
-
 import { useEffect, useState } from 'react';
 import { getProducts, getSuggestions } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/providers/context/context';
-
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import ProductsCard from './ProductsCard';
-import clsx from 'clsx';
 
 type Props = {
   initialProducts: any;
@@ -51,23 +48,37 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     }
   }, [inView]);
 
+  const breakPoints = {
+    360: 2,
+    640: 3,
+    1024: 5,
+    1400: 6,
+    1650: 7,
+    1850: 8,
+  };
+  const breakPointSuggestion = {
+    360: 2,
+    640: 3,
+    1024: 3,
+    1400: 3,
+    1650: 4,
+    1850: 5,
+  };
+
   return (
     <>
-      <div
-      // className='masonry-grid'
-      // className={clsx(
-      //   'columns-1 xs:columns-2 md:columns-3 gap-4',
-      //   suggestionPage
-      //     ? 'lg:columns-3 2xl:columns-3 3xl:columns-4'
-      //     : 'lg:columns-5 2xl:columns-6 3xl:columns-7'
-      // )}
+      <ResponsiveMasonry
+        columnsCountBreakPoints={
+          suggestionPage ? breakPointSuggestion : breakPoints
+        }
       >
-        {products?.map((item: any, index: number) => (
-          // <div key={item.id} className='masonry-grid-item'>
-          <ProductsCard key={item.id} product={item} />
-          // </div>
-        ))}
-      </div>
+        <Masonry gutter='10px'>
+          {products?.map((item: any, index: number) => (
+            <ProductsCard key={item.id} product={item} />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+
       <div ref={ref} className='invisible'>
         Load more
       </div>
