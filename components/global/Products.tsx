@@ -20,7 +20,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   const [page, setPage] = useState(1);
 
   const { ref, inView } = useInView({
-    threshold: 0.1,
+    threshold: 1,
   });
 
   useEffect(() => {
