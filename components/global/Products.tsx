@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/providers/context/context';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import ProductsCard from './ProductsCard';
+import axiosInstance from '@/utils/axiosInstance';
 
 type Props = {
   initialProducts: any;
@@ -19,9 +20,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
   const [page, setPage] = useState(1);
 
-  const { ref, inView } = useInView({
-    threshold: 1,
-  });
+  const { ref, inView } = useInView();
 
   useEffect(() => {
     setProducts(initialProducts || []);
@@ -34,6 +33,11 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       const newProducts = await getSuggestions(productId, nextPage, 21);
       setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
     } else {
+      // const res = await axiosInstance.get(
+      //   `/products?page=${nextPage}&page_size=${21}`
+      // );
+      // console.log(res.data);
+      // const newProducts = res.data;
       const newProducts = await getProducts(nextPage, 21);
       setProducts((prevProducts: any) => [
         ...(prevProducts || []),
@@ -49,6 +53,8 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       loadMoreProducts();
     }
   }, [inView]);
+
+  console.log({ inView });
 
   const breakPoints = {
     360: 2,
