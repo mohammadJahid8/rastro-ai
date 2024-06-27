@@ -2,11 +2,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getProducts, getSuggestions } from '@/actions/dataFetcher';
 import { useInView } from 'react-intersection-observer';
 import { useAppContext } from '@/providers/context/context';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import ProductsCard from './ProductsCard';
+import axiosInstance from '@/utils/axiosInstance';
 
 type Props = {
   initialProducts: any;
@@ -19,9 +19,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
   const [page, setPage] = useState(1);
 
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-  });
+  const { ref, inView } = useInView();
 
   useEffect(() => {
     setProducts(initialProducts || []);
@@ -31,24 +29,54 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     const nextPage = page + 1;
 
     if (suggestionPage && productId) {
-      const newProducts = await getSuggestions(productId, nextPage, 40);
-      setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
+      const res = await axiosInstance.get(
+        `/product/${productId}/nearest?page=${page}&page_size=${16}`
+      );
+
+      if (res.status === 200) {
+        const newProducts = res.data;
+        // const newProducts = await getSuggestions(productId, nextPage, 12);
+        setProducts((prev: any) => {
+          const newProductIds = new Set(newProducts.map((p: any) => p.id));
+          const finalProducts =
+            nextPage === 1
+              ? newProducts
+              : [
+                  ...prev.filter((p: any) => !newProductIds.has(p.id)),
+                  ...newProducts,
+                ];
+          return finalProducts || [];
+        });
+
+        const scrollableHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollAmount = scrollableHeight * 0.01;
+        window.scrollBy(0, -scrollAmount);
+      }
     } else {
-      // const res = await axiosInstance.get(
-      //   `/products?page=${nextPage}&page_size=${40}`
-      // );
-      // console.log(res.data);
-      // const newProducts = res.data;
-      const newProducts = await getProducts(nextPage, 40);
-      setProducts((prev: any) => {
-        const newProductIds = new Set(newProducts.map((p: any) => p.id));
-        return nextPage === 1
-          ? newProducts
-          : [
-              ...prev.filter((p: any) => !newProductIds.has(p.id)),
-              ...newProducts,
-            ];
-      });
+      const res = await axiosInstance.get(
+        `/products?page=${nextPage}&page_size=${16}`
+      );
+
+      if (res.status === 200) {
+        const newProducts = res.data;
+        // const newProducts = await getProducts(nextPage, 12);
+        setProducts((prev: any) => {
+          const newProductIds = new Set(newProducts.map((p: any) => p.id));
+          const finalProducts =
+            nextPage === 1
+              ? newProducts
+              : [
+                  ...prev.filter((p: any) => !newProductIds.has(p.id)),
+                  ...newProducts,
+                ];
+          return finalProducts || [];
+        });
+        const scrollableHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const scrollAmount = scrollableHeight * 0.01;
+        window.scrollBy(0, -scrollAmount);
+      }
     }
 
     setPage(nextPage);
@@ -58,7 +86,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     if (inView) {
       loadMoreProducts();
     }
-  }, [inView]);
+  }, [inView, page]);
 
   const breakPoints = {
     360: 2,
@@ -78,7 +106,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   };
 
   return (
-    <>
+    <div>
       <ResponsiveMasonry
         columnsCountBreakPoints={
           suggestionPage ? breakPointSuggestion : breakPoints
@@ -89,7 +117,11 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
             <ProductsCard
               key={item.id}
               product={item}
-              lastElRef={index === products.length - 20 ? ref : null}
+              lastElRef={
+                index === products.length - (suggestionPage ? 1 : 2)
+                  ? ref
+                  : null
+              }
             />
           ))}
         </Masonry>
@@ -98,7 +130,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       <div ref={ref} className='invisible'>
         Load more
       </div>
-    </>
+    </div>
   );
 };
 
