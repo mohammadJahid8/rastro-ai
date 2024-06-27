@@ -1,4 +1,7 @@
 "use server";
+
+import { redirect } from "next/navigation";
+
 const BASE_URL = "https://sourcerer-production.up.railway.app/api";
 
 export async function getProduct(id: string) {
