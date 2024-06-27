@@ -34,8 +34,10 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
     if (suggestionPage && productId) {
       newProducts = await getSuggestions(productId, nextPage, 21);
+      console.log(newProducts);
     } else {
       newProducts = await getProducts(nextPage, 21);
+      console.log(newProducts);
     }
 
     setProducts((prevProducts: any) => [...prevProducts, ...newProducts]);
