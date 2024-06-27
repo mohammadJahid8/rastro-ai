@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { getProducts } from "@/actions/dataFetcher";
-import { auth } from "@/firebase/firebase";
-import axiosInstance from "@/utils/axiosInstance";
+import { getProducts } from '@/actions/dataFetcher';
+import { auth } from '@/firebase/firebase';
+import axiosInstance from '@/utils/axiosInstance';
 import {
   onAuthStateChanged,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-} from "firebase/auth";
-import { redirect, usePathname, useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+} from 'firebase/auth';
+import { redirect, usePathname, useRouter } from 'next/navigation';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export type UserType = {
   uid: string;
@@ -23,7 +23,7 @@ export const AppContext = createContext<any | null>(null);
 export function useAppContext(): any {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAppContext must be used within an AppProvider");
+    throw new Error('useAppContext must be used within an AppProvider');
   }
   return context;
 }
@@ -31,7 +31,7 @@ export function useAppContext(): any {
 function Context({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserType>(null);
   const [loadingUser, setLoadingUser] = useState<boolean>(true);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [products, setProducts] = useState<any>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ function Context({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         currentUser.getIdToken().then((idToken) => {
-          localStorage.setItem("token", idToken);
+          localStorage.setItem('token', idToken);
           setUser({
             uid: currentUser.uid,
             displayName: currentUser.displayName as string,
@@ -49,7 +49,7 @@ function Context({ children }: { children: React.ReactNode }) {
         });
       } else {
         setUser(null);
-        localStorage.removeItem("token");
+        localStorage.removeItem('token');
         setLoadingUser(false);
       }
     });
@@ -61,16 +61,16 @@ function Context({ children }: { children: React.ReactNode }) {
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
     } catch (error) {
-      console.error("Login error:", error);
+      console.error('Login error:', error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error('Logout error:', error);
     }
   };
 
@@ -78,14 +78,16 @@ function Context({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const searchProducts = async () => {
+    console.log('insidee');
+
     setIsSearching(true);
     const searchedProducts = await getProducts(1, 21, searchQuery);
 
     setProducts(searchedProducts);
     setIsSearching(false);
 
-    if (pathName !== "/") {
-      router.push("/");
+    if (pathName !== '/') {
+      router.push('/');
     }
   };
 
@@ -93,13 +95,13 @@ function Context({ children }: { children: React.ReactNode }) {
     try {
       setIsSearching(true);
       const formData = new FormData();
-      formData.append("image", imageData);
+      formData.append('image', imageData);
       const response = await axiosInstance.post(
-        "/products/image-search/",
+        '/products/image-search/',
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
@@ -108,14 +110,14 @@ function Context({ children }: { children: React.ReactNode }) {
       setIsSearching(false);
       return {
         success: true,
-        message: "fetched",
+        message: 'fetched',
       };
     } catch (error) {
-      console.error("Error searching visually similar products:", error);
+      console.error('Error searching visually similar products:', error);
       setIsSearching(false);
       return {
         success: false,
-        message: "No matches found. Try another image.",
+        message: 'No matches found. Try another image.',
       };
     }
   };

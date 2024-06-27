@@ -7,7 +7,7 @@ import Products from './Products';
 const ProductDetails = ({ product, suggestions, productId }: any) => {
   return (
     <div className='flex lg:flex-row flex-col gap-4 h-full lg:px-10'>
-      <div className='lg:w-1/3 xl:w-[30%]  '>
+      <div className='lg:w-[45%] xl:w-[35%] 2xl:w-[30%]  '>
         <div className='flex items-start gap-4 w-full'>
           <div className='w-12 hidden lg:block'>
             <Link
@@ -20,7 +20,7 @@ const ProductDetails = ({ product, suggestions, productId }: any) => {
           <ProductCard product={product} />
         </div>
       </div>
-      <div className='lg:w-2/3 xl:w-[70%] px-5 lg:px-0'>
+      <div className='lg:w-[55%] xl:w-[65%] 2xl:w-[70%] px-5 lg:px-0'>
         <Products
           initialProducts={suggestions}
           suggestionPage={true}

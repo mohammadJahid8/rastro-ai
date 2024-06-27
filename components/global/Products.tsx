@@ -54,7 +54,6 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
     }
   }, [inView]);
 
-
   const breakPoints = {
     360: 2,
     640: 3,
@@ -66,9 +65,9 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   const breakPointSuggestion = {
     360: 2,
     640: 3,
-    1024: 3,
-    1400: 3,
-    1650: 4,
+    1024: 2,
+    1200: 3,
+    1400: 4,
     1850: 5,
   };
 
