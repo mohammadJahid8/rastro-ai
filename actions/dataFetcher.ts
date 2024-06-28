@@ -1,6 +1,5 @@
-"use server";
+// "use server";
 
-import { redirect } from "next/navigation";
 
 const BASE_URL = "https://sourcerer-production.up.railway.app/api";
 

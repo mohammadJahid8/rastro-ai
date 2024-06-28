@@ -110,7 +110,7 @@ const ProductCard = ({ product }: any) => {
                       className={`max-h-[350px] md:max-h-[500px] h-full object-cover w-full lg:rounded-lg cursor-pointer`}
                     />
                   </DialogTrigger>
-                  <DialogContent className='!h-[97vh] md:!h-[80vh] md:max-w-[90vw]  lg:max-w-[70vw] border-none '>
+                  <DialogContent className='!h-[97vh] md:!h-[80vh] md:max-w-[90vw] object-cover lg:max-w-[70vw] border-none '>
                     <Image
                       src={url}
                       alt={product?.title_french}
@@ -122,7 +122,7 @@ const ProductCard = ({ product }: any) => {
                       onLoad={() => setImageLoading(false)}
                       className={`${
                         isImageLoading ? 'bg-gray-200 min-h-80' : ''
-                      }  !h-[97vh] md:!h-[80vh] object-cover w-full lg:rounded-lg`}
+                      }  !h-[97vh] md:!h-[80vh] object-contain md:object-fill w-full lg:rounded-lg`}
                     />
                   </DialogContent>
                 </Dialog>
