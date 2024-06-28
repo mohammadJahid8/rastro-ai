@@ -387,7 +387,7 @@ const UserInput = ({
       } else {
         params.delete('search');
       }
-
+      searchProducts();
       replace(`/?${params.toString()}`);
     }
   };
