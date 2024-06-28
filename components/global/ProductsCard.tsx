@@ -68,7 +68,7 @@ const ProductsCard = ({ product, lastElRef }: Props) => {
                 e.stopPropagation();
                 window.open(product.url, '_blank');
               }}
-              size={"sm"}
+              size={'sm'}
               variant={'outline'}
               className='gap-1 sm:px-[12px] py-0 sm:py-2 px-[8px] text-[10px] sm:text-[14px] font-medium sm:h-[40px] h-[32px]'
             >

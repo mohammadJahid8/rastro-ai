@@ -22,6 +22,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   const { ref, inView } = useInView();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setProducts(initialProducts || []);
   }, [initialProducts]);
 
@@ -118,7 +119,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
               key={item.id}
               product={item}
               lastElRef={
-                index === products.length - (suggestionPage ? 1 : 2)
+                index === products.length - (suggestionPage ? 5 : 10)
                   ? ref
                   : null
               }
@@ -127,9 +128,9 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         </Masonry>
       </ResponsiveMasonry>
 
-      <div ref={ref} className='invisible'>
+      {/* <div ref={ref} className='invisible'>
         Load more
-      </div>
+      </div> */}
     </div>
   );
 };
