@@ -71,7 +71,6 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   useEffect(() => {
     const loadProducts = async () => {
       if (inView) {
-        console.log('insideee');
         await loadMoreProducts();
       }
     };
