@@ -33,7 +33,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
 
     let url =
       suggestionPage && productId
-        ? `/product/${productId}/nearest?page=${page}&page_size=${16}`
+        ? `/product/${productId}/nearest?page=${page}&page_size=${40}`
         : `/products?page=${nextPage}&page_size=${16}`;
 
     try {
@@ -45,12 +45,8 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         setProducts((prev: any) => {
           const newProductIds = new Set(newProducts.map((p: any) => p.id));
           const finalProducts =
-            nextPage === 1
-              ? newProducts
-              : [
-                  ...prev.filter((p: any) => !newProductIds.has(p.id)),
-                  ...newProducts,
-                ];
+            // .filter((p: any) => !newProductIds.has(p.id))
+            nextPage === 1 ? newProducts : [...prev, ...newProducts];
           return finalProducts || [];
         });
 
@@ -106,7 +102,11 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
             <ProductsCard
               key={item.id}
               product={item}
-              lastElRef={index === products.length - 1 ? ref : null}
+              lastElRef={
+                index === products.length - (suggestionPage ? 4 : 1)
+                  ? ref
+                  : null
+              }
             />
           ))}
         </Masonry>

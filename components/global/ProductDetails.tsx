@@ -8,23 +8,23 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axiosInstance from '@/utils/axiosInstance';
 
-const ProductDetails = ({ product, productId }: any) => {
+const ProductDetails = ({ product, suggestions, productId }: any) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
-  const [suggestions, setSuggestions] = useState([]);
+  // const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    const getSuggestions = async () => {
-      try {
-        const response = await axiosInstance.post(
-          `/product/${productId}/nearest?page=${1}&page_size=${10}`
-        );
-        setSuggestions(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getSuggestions();
+    // const getSuggestions = async () => {
+    //   try {
+    //     const response = await axiosInstance.post(
+    //       `/product/${productId}/nearest?page=${1}&page_size=${10}`
+    //     );
+    //     setSuggestions(response.data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // getSuggestions();
 
     const query = sessionStorage.getItem('searchQuery');
     if (query) {
