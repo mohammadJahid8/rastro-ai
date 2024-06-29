@@ -1,5 +1,6 @@
-// "use server";
+"use server";
 
+// localStorage.getItem("token");
 
 const BASE_URL = "https://sourcerer-production.up.railway.app/api";
 
