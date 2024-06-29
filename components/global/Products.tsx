@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { useAppContext } from "@/providers/context/context";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import ProductsCard from "./ProductsCard";
-import axiosInstance from "@/utils/axiosInstance";
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useAppContext } from '@/providers/context/context';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import ProductsCard from './ProductsCard';
+import axiosInstance from '@/utils/axiosInstance';
 
 type Props = {
   initialProducts: any;
@@ -25,7 +25,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setProducts(initialProducts || []);
-  }, [initialProducts]);
+  }, []);
 
   const loadMoreProducts = async () => {
     const nextPage = page + 1;
@@ -42,17 +42,17 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       if (res.status === 200) {
         const newProducts = res.data;
 
-        const prevIds = new Set(products.map((p: any) => p.id));
-
-        const finalProducts =
-          nextPage === 1
-            ? newProducts
-            : [
-                ...products,
-                ...newProducts.filter((p: any) => !prevIds.has(p.id)),
-              ];
-
-        setProducts(finalProducts);
+        setProducts((prev: any) => {
+          const previds = new Set(prev.map((p: any) => p.id));
+          const finalProducts =
+            nextPage === 1
+              ? newProducts
+              : [
+                  ...prev,
+                  ...newProducts.filter((p: any) => !previds.has(p.id)),
+                ];
+          return finalProducts || [];
+        });
 
         const scrollableHeight =
           document.documentElement.scrollHeight - window.innerHeight;
@@ -60,7 +60,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         window.scrollBy(0, -scrollAmount);
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     } finally {
       setLoading(false);
     }
@@ -101,7 +101,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
           suggestionPage ? breakPointSuggestion : breakPoints
         }
       >
-        <Masonry gutter="10px">
+        <Masonry gutter='10px'>
           {products?.map((item: any, index: number) => (
             <ProductsCard
               key={item.id}
@@ -116,7 +116,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         </Masonry>
       </ResponsiveMasonry>
 
-      {loading && <div className="text-center">Loading...</div>}
+      {loading && <div className='text-center'>Loading...</div>}
     </div>
   );
 };
