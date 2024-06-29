@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useAppContext } from '@/providers/context/context';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import ProductsCard from './ProductsCard';
-import axiosInstance from '@/utils/axiosInstance';
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useAppContext } from "@/providers/context/context";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import ProductsCard from "./ProductsCard";
+import axiosInstance from "@/utils/axiosInstance";
 
 type Props = {
   initialProducts: any;
@@ -42,13 +42,17 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
       if (res.status === 200) {
         const newProducts = res.data;
 
-        setProducts((prev: any) => {
-          const newProductIds = new Set(newProducts.map((p: any) => p.id));
-          const finalProducts =
-            // .filter((p: any) => !newProductIds.has(p.id))
-            nextPage === 1 ? newProducts : [...prev, ...newProducts];
-          return finalProducts || [];
-        });
+        const prevIds = new Set(products.map((p: any) => p.id));
+
+        const finalProducts =
+          nextPage === 1
+            ? newProducts
+            : [
+                ...products,
+                ...newProducts.filter((p: any) => !prevIds.has(p.id)),
+              ];
+
+        setProducts(finalProducts);
 
         const scrollableHeight =
           document.documentElement.scrollHeight - window.innerHeight;
@@ -56,7 +60,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         window.scrollBy(0, -scrollAmount);
       }
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
@@ -97,7 +101,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
           suggestionPage ? breakPointSuggestion : breakPoints
         }
       >
-        <Masonry gutter='10px'>
+        <Masonry gutter="10px">
           {products?.map((item: any, index: number) => (
             <ProductsCard
               key={item.id}
@@ -112,7 +116,7 @@ const Products = ({ initialProducts, productId, suggestionPage }: Props) => {
         </Masonry>
       </ResponsiveMasonry>
 
-      {loading && <div className='text-center'>Loading...</div>}
+      {loading && <div className="text-center">Loading...</div>}
     </div>
   );
 };
